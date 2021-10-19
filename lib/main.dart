@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -54,12 +56,19 @@ class _MyHomePageState extends State<MyHomePage> {
     final reddit = Reddit.createInstalledFlowInstance(
         userAgent: userAgent,
         clientId: 'h-leSR3fD6gG3C6hL2mqBw',
-        redirectUri: Uri.parse('redditech://Hello'));
+        redirectUri: Uri.parse('redditech://hello'));
 
     // Build the URL used for authentication. See `WebAuthenticator`
     // documentation for parameters.
     final auth_url = reddit.auth.url(['*'], 'foobar');
-    inspect(auth_url);
+
+    print(auth_url);
+
+    final result = await FlutterWebAuth.authenticate(
+        url: auth_url.toString(), callbackUrlScheme: "redditech");
+
+// Extract token from resulting url
+    // final token = Uri.parse(result).queryParameters['token'];
     // ...
     // Complete authentication at `auth_url` in the browser and retrieve
     // the `code` query parameter from the redirect URL.

@@ -21,4 +21,16 @@
     <data android:mimeType="*/*" />
   </intent>
 </queries>
+  <application>
+
+    <activity android:name="com.linusu.flutter_web_auth.CallbackActivity" >
+      <intent-filter android:label="flutter_web_auth">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="YOUR_CALLBACK_URL_SCHEME_HERE" />
+      </intent-filter>
+    </activity>
+
+  </application>
 </manifest>
