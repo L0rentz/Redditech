@@ -56,7 +56,9 @@ class _MyHomePageState extends State<MyHomePage> {
     final reddit = Reddit.createInstalledFlowInstance(
         userAgent: userAgent,
         clientId: 'h-leSR3fD6gG3C6hL2mqBw',
-        redirectUri: Uri.parse('redditech://hello'));
+        tokenEndpoint:
+            Uri.parse('https://www.reddit.com/api/v1/authorize.compact'),
+        redirectUri: Uri.parse('redditech://callback'));
 
     // Build the URL used for authentication. See `WebAuthenticator`
     // documentation for parameters.
@@ -65,7 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
     print(auth_url);
 
     final result = await FlutterWebAuth.authenticate(
-        url: auth_url.toString(), callbackUrlScheme: "redditech");
+        url:
+            'https://www.reddit.com/api/v1/authorize.compact?response_type=code&client_id=h-leSR3fD6gG3C6hL2mqBw&redirect_uri=redditech%3A%2F%2Fcallback&code_challenge=tbFuAXBqDzqUqdrK322pM73ZTvotzGxQHDfiC2nonU8&code_challenge_method=S256&state=foobar&scope=%2A&duration=permanent',
+        callbackUrlScheme: "redditech");
+    print("ANALLLL SEEEEXXXX        " + result);
 
 // Extract token from resulting url
     // final token = Uri.parse(result).queryParameters['token'];
