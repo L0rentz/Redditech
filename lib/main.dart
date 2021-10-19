@@ -10,14 +10,6 @@ import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
-var uuid = const Uuid();
-String randomStr = uuid.v1();
-
-final _url =
-    'https://www.reddit.com/api/v1/authorize?client_id=h-leSR3fD6gG3C6hL2mqBw&response_type=code&state=' +
-        randomStr +
-        '&redirect_uri=http://localhost/:8080&duration=temporary&scope=identity%27)';
-
 void main() {
   runApp(const MyApp());
 }
@@ -48,7 +40,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Future<void> _test() async {
-    const userAgent = 'foobarHGFHGFGHFGHFGH';
+    var uuid = const Uuid();
+    String userAgent = uuid.v1();
 
     // Create a `Reddit` instance using a configuration file in the current
     // directory. Unlike the web authentication example, a client secret does
@@ -62,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Build the URL used for authentication. See `WebAuthenticator`
     // documentation for parameters.
-    final auth_url = reddit.auth.url(['*'], 'foobar');
+    final auth_url = reddit.auth.url(['*'], userAgent);
 
     print(auth_url);
 
@@ -70,23 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
         url:
             'https://www.reddit.com/api/v1/authorize.compact?response_type=code&client_id=h-leSR3fD6gG3C6hL2mqBw&redirect_uri=redditech%3A%2F%2Fcallback&code_challenge=tbFuAXBqDzqUqdrK322pM73ZTvotzGxQHDfiC2nonU8&code_challenge_method=S256&state=foobar&scope=%2A&duration=permanent',
         callbackUrlScheme: "redditech");
-    print("ANALLLL SEEEEXXXX        " + result);
 
-// Extract token from resulting url
-    // final token = Uri.parse(result).queryParameters['token'];
-    // ...
-    // Complete authentication at `auth_url` in the browser and retrieve
-    // the `code` query parameter from the redirect URL.
-    // ...
+    print(result);
+    List codeList = result.split("code=");
 
-    // Assuming the `code` query parameter is stored in a variable
-    // `auth_code`, we pass it to the `authorize` method in the
-    // `WebAuthenticator`.
-    // await reddit.auth.authorize(auth_code);
+    await reddit.auth.authorize(codeList[1]);
 
-    // If everything worked correctly, we should be able to retrieve
-    // information about the authenticated account.
-    // print(await reddit.user.me());
+    print(await reddit.user.me());
   }
 
   @override
