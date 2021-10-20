@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/hub_page.dart';
 import 'package:flutter_application_1/theme/redditech_colors.dart';
 
 import 'pages/home_page.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const MyHomePage(title: "Redditech"),
+        '/hub': (context) => const MyHubPage(title: "Home"),
       },
     );
   }

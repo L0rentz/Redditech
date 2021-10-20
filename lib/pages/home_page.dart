@@ -1,5 +1,6 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/global.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,7 +14,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Reddit> _test() async {
+  Future<void> _test() async {
     var uuid = const Uuid();
     String userAgent = uuid.v1();
 
@@ -41,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     print(await reddit.user.me());
 
-    return (reddit);
+    Global.reddit = reddit;
+
+    Navigator.pushNamed(context, '/hub');
   }
 
   @override
