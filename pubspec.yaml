@@ -65,6 +65,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+
+  assets:
+    - assets/
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
@@ -83,12 +86,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
+  fonts:
+    - family: Frankfurter
+      fonts:
+        - asset: fonts/Frankfurter_Std_Regular.otf
+          weight: 100
+    - family: OpenSans
+      fonts:
+        - asset: fonts/OpenSans.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
