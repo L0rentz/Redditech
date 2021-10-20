@@ -28,19 +28,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Build the URL used for authentication. See `WebAuthenticator`
     // documentation for parameters.
-    final auth_url = reddit.auth.url(['*'], userAgent, compactLogin: true);
-
-    print(auth_url);
+    final authUrl = reddit.auth.url(['*'], userAgent, compactLogin: true);
 
     final result = await FlutterWebAuth.authenticate(
-        url: auth_url.toString(), callbackUrlScheme: "redditech");
+        url: authUrl.toString(), callbackUrlScheme: "redditech");
 
-    print(result);
     final code = Uri.parse(result).queryParameters['code'];
 
     await reddit.auth.authorize(code!);
 
-    print(await reddit.user.me());
+    //print(await reddit.user.me());
 
     Global.reddit = reddit;
 
