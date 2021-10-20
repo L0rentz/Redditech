@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
-
-import 'package:oauth2/oauth2.dart' as oauth2;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
+import 'subreddit_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,35 +36,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<void> _test() async {
-    var uuid = const Uuid();
+  late Reddit reddit;
+  bool init = false;
+
+  Future<Reddit> _test() async {
+    Uuid uuid = const Uuid();
     String userAgent = uuid.v1();
 
     // Create a `Reddit` instance using a configuration file in the current
     // directory. Unlike the web authentication example, a client secret does
     // not need to be provided in the configuration file.
-    final reddit = Reddit.createInstalledFlowInstance(
+    Reddit reddit = Reddit.createInstalledFlowInstance(
         userAgent: userAgent,
         clientId: 'h-leSR3fD6gG3C6hL2mqBw',
-        tokenEndpoint:
-            Uri.parse('https://www.reddit.com/api/v1/authorize.compact'),
         redirectUri: Uri.parse('redditech://callback'));
 
     // Build the URL used for authentication. See `WebAuthenticator`
     // documentation for parameters.
-    final auth_url = reddit.auth.url(['*'], userAgent, compactLogin: true);
+    Uri authUrl = reddit.auth.url(['*'], userAgent, compactLogin: true);
 
-    print(auth_url);
+    String result = await FlutterWebAuth.authenticate(
+        url: authUrl.toString(), callbackUrlScheme: "redditech");
 
-    final result = await FlutterWebAuth.authenticate(
-        url: auth_url.toString(), callbackUrlScheme: "redditech");
-
-    print(result);
-    final code = Uri.parse(result).queryParameters['code'];
+    String? code = Uri.parse(result).queryParameters['code'];
 
     await reddit.auth.authorize(code!);
 
-    print(await reddit.user.me());
+    //print(await reddit.user.me());
+    return reddit;
   }
 
   @override
@@ -87,11 +83,27 @@ class _MyHomePageState extends State<MyHomePage> {
               'Auth',
               style: Theme.of(context).textTheme.headline4,
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6,
+              child: (() {
+                if (init == true) {
+                  return SubredditList(
+                    futureApiCall: reddit.subreddits.newest,
+                    limit: 10,
+                  );
+                }
+              }()),
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _test,
+        onPressed: () async {
+          reddit = await _test();
+          setState(() {
+            init = true;
+          });
+        },
         tooltip: 'Reddit auth',
         child: const Icon(Icons.add),
       ),
