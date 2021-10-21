@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Palette.redditOrange,
-        scaffoldBackgroundColor: Colors.grey.shade300,
+        scaffoldBackgroundColor: Colors.grey.shade200,
         textTheme: const TextTheme(
             headline1: TextStyle(
                 fontFamily: 'Frankfurter', fontSize: 40, color: Colors.black),

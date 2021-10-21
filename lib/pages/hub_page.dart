@@ -17,13 +17,16 @@ class _MyHubPageState extends State<MyHubPage> {
       appBar: AppBar(
         title: Center(child: Text(widget.title)),
       ),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.8,
-        child: SubredditList(
-          futureApiCall: Global.reddit!.subreddits.popular,
-          limit: 20,
-        ),
-      ),
+      body: Builder(builder: (context) {
+        return SizedBox(
+          height: MediaQuery.of(context).size.height -
+              Scaffold.of(context).appBarMaxHeight!,
+          child: SubredditList(
+            futureApiCall: Global.reddit!.subreddits.popular,
+            limit: 20,
+          ),
+        );
+      }),
     );
   }
 }
