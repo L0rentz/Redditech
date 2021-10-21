@@ -21,7 +21,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.grey.shade200,
         textTheme: const TextTheme(
             headline1: TextStyle(
-                fontFamily: 'Frankfurter', fontSize: 40, color: Colors.black),
+              fontFamily: 'VAG',
+              fontSize: 45,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
             button: TextStyle(
                 fontFamily: 'OpenSans', fontSize: 18, color: Colors.white)),
       ),

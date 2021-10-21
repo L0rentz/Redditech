@@ -31,7 +31,6 @@ class _MyHomePageState extends State<MyHomePage> {
           url: authUrl.toString(), callbackUrlScheme: "redditech");
       String? code = Uri.parse(result).queryParameters['code'];
       await reddit.auth.authorize(code!);
-      //print(await reddit.user.me());
       Global.reddit = reddit;
       Navigator.pushNamed(context, '/hub');
     } catch (e) {
@@ -62,20 +61,26 @@ class _MyHomePageState extends State<MyHomePage> {
             const Spacer(),
             TextButton(
               onPressed: _oauth2,
-              child: Text(
-                "Sign in",
-                style: Theme.of(context).textTheme.button,
+              child: SizedBox(
+                width: screenWidth * 0.25,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Spacer(flex: 4),
+                    Text(
+                      "Sign in",
+                      style: Theme.of(context).textTheme.button,
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.arrow_forward_ios_rounded),
+                    const Spacer(flex: 4),
+                  ],
+                ),
               ),
               style: TextButton.styleFrom(
                 primary: Colors.white,
                 backgroundColor: Theme.of(context).primaryColor,
                 onSurface: Colors.grey,
-                padding: EdgeInsets.fromLTRB(
-                  screenWidth * 0.13,
-                  0,
-                  screenWidth * 0.13,
-                  0,
-                ),
               ),
             ),
             const Spacer(flex: 5),

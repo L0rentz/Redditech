@@ -88,6 +88,9 @@ flutter:
       fonts:
         - asset: fonts/Frankfurter_Std_Regular.otf
           weight: 100
+    - family: VAG
+      fonts:
+        - asset: fonts/VAG_rounded_regular.ttf
     - family: OpenSans
       fonts:
         - asset: fonts/OpenSans.ttf
