@@ -30,18 +30,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // documentation for parameters.
     final authUrl = reddit.auth.url(['*'], userAgent, compactLogin: true);
 
-    final result = await FlutterWebAuth.authenticate(
-        url: authUrl.toString(), callbackUrlScheme: "redditech");
-
-    final code = Uri.parse(result).queryParameters['code'];
-
-    await reddit.auth.authorize(code!);
-
-    //print(await reddit.user.me());
-
-    Global.reddit = reddit;
-
-    Navigator.pushNamed(context, '/hub');
+    try {
+      final result = await FlutterWebAuth.authenticate(
+          url: authUrl.toString(), callbackUrlScheme: "redditech");
+      final code = Uri.parse(result).queryParameters['code'];
+      await reddit.auth.authorize(code!);
+      //print(await reddit.user.me());
+      Global.reddit = reddit;
+      Navigator.pushNamed(context, '/hub');
+    } catch (e) {
+      throw "User closed auth";
+    }
   }
 
   @override
