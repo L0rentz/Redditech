@@ -1,6 +1,7 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/utils/custom_bar.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:uuid/uuid.dart';
 
@@ -43,6 +44,11 @@ class _MyHomePageState extends State<MyHomePage> {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: CustomAppBar(
+        isNeg: 1,
+        isTop: true,
+        screenWidth: MediaQuery.of(context).size.width,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -84,6 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const Spacer(flex: 5),
+            CustomAppBar(
+              isNeg: -1,
+              isTop: false,
+              screenWidth: MediaQuery.of(context).size.width,
+            )
           ],
         ),
       ),
