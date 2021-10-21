@@ -20,9 +20,9 @@ class _SubredditListState extends State<SubredditList> {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     Stream<SubredditRef> streamList = widget.futureApiCall(limit: widget.limit);
     await streamList.forEach((element) {
+      inspect(element);
       subredditList.add(SubredditListContent(title: element.displayName));
     });
-    inspect(streamList);
     return subredditList;
   }
 
@@ -41,8 +41,14 @@ class _SubredditListState extends State<SubredditList> {
             },
           );
         } else {
-          return const LoadingIndicator(
-            indicatorType: Indicator.ballPulse,
+          return Center(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.width / 3,
+              width: MediaQuery.of(context).size.width / 3,
+              child: const LoadingIndicator(
+                indicatorType: Indicator.ballSpinFadeLoader,
+              ),
+            ),
           );
         }
       },
