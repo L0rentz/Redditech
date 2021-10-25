@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_builder_functions.dart';
+import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
+
+import '../global.dart';
 
 class MyHubPage extends StatefulWidget {
   const MyHubPage({Key? key, required this.title}) : super(key: key);
@@ -13,24 +16,17 @@ class MyHubPage extends StatefulWidget {
 class _MyHubPageState extends State<MyHubPage> {
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Center(child: Text(widget.title)),
-        ),
-        body: Builder(builder: (context) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height -
-                Scaffold.of(context).appBarMaxHeight!,
-            child: const SubredditList(
-              futureFunction: FutureBuilderFunctions.getSubredditsPopularList,
-              limit: 20,
-            ),
-          );
-        }),
-      ),
+    return LoggedScaffold(
+      body: Builder(builder: (context) {
+        return SizedBox(
+          height: Global.screenHeight,
+          child: const SubredditList(
+            futureFunction: FutureBuilderFunctions.getSubredditsPopularList,
+            limit: 20,
+          ),
+        );
+      }),
+      title: widget.title,
     );
   }
 }

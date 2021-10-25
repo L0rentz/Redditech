@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/global.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 class SubredditList extends StatefulWidget {
@@ -32,8 +33,8 @@ class _SubredditListState extends State<SubredditList> {
         } else {
           return Center(
             child: SizedBox(
-              height: MediaQuery.of(context).size.width / 3,
-              width: MediaQuery.of(context).size.width / 3,
+              height: Global.minScreenSize / 5,
+              width: Global.minScreenSize / 5,
               child: const LoadingIndicator(
                 indicatorType: Indicator.ballSpinFadeLoader,
               ),

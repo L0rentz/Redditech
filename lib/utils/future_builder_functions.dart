@@ -13,10 +13,17 @@ class FutureBuilderFunctions {
         Global.reddit!.subreddits.popular(limit: limit);
     await streamList.forEach((element) {
       inspect(element);
-      subredditList.add(SubredditListContent(
-        title: element.displayName,
-        iconUrl: (element as Subreddit).iconImage,
-      ));
+      (element as Subreddit);
+      if (element.displayName != "Home") {
+        subredditList.add(SubredditListContent(
+          title: "r/" + element.displayName,
+          iconUrl: element.iconImage.toString() == "" ||
+                  element.iconImage == null
+              ? Uri.parse((element.data!["community_icon"])
+                  .substring(0, (element.data!["community_icon"]).indexOf('?')))
+              : element.iconImage,
+        ));
+      }
     });
     return subredditList;
   }

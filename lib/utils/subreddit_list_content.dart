@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/global.dart';
 
 class SubredditListContent extends StatelessWidget {
   const SubredditListContent(
@@ -11,17 +12,33 @@ class SubredditListContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 15,
+      height: Global.screenHeight / 15,
       child: Row(
         children: [
+          const Spacer(),
           if (iconUrl == null || iconUrl.toString() == "") ...[
-            Image.asset("assets/placeholder.png"),
+            CircleAvatar(
+              radius: Global.screenHeight / 40,
+              backgroundImage: const AssetImage("assets/placeholder.png"),
+            ),
           ] else ...[
-            Image.network(iconUrl.toString()),
+            CircleAvatar(
+              radius: Global.screenHeight / 40,
+              backgroundImage: NetworkImage(iconUrl.toString()),
+            ),
           ],
-          const Spacer(),
-          Text(title),
-          const Spacer(),
+          const Spacer(flex: 1),
+          SizedBox(
+            width: Global.screenWidth / 1.5,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: Global.screenHeight / 48,
+                fontFamily: "OpenSans",
+              ),
+            ),
+          ),
+          const Spacer(flex: 6),
         ],
       ),
     );
