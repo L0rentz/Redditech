@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/utils/drawer_profil.dart';
 
-class LoggedScaffold extends StatelessWidget {
+class LoggedScaffold extends StatefulWidget {
   const LoggedScaffold({Key? key, required this.body, required this.title})
       : super(key: key);
 
   final Widget body;
   final String title;
 
+  @override
+  State<LoggedScaffold> createState() => _LoggedScaffoldState();
+}
+
+class _LoggedScaffoldState extends State<LoggedScaffold> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +70,24 @@ class LoggedScaffold extends StatelessWidget {
                 ],
               );
             }),
+            const Spacer(),
+            IconButton(
+              splashRadius: Global.screenHeight / 45,
+              iconSize: Global.screenHeight / 25,
+              onPressed: () async {
+                await Global.reddit!.auth.refresh();
+                Global.redditor = await Global.reddit!.user.me();
+                setState(() {});
+              },
+              icon: Icon(
+                Icons.refresh_sharp,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
           ],
         ),
       ),
-      body: body,
+      body: widget.body,
     );
   }
 }
