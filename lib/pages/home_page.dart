@@ -94,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
             "Welcome to the most insane Redditech!",
             style: TextStyle(
               fontFamily: 'OpenSans',
-              fontSize: Global.minScreenSize / 30,
+              fontSize: Global.minScreenSize / 22,
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
@@ -112,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     "Sign in",
                     style: TextStyle(
                       fontFamily: 'OpenSans',
-                      fontSize: Global.minScreenSize / 35,
+                      fontSize: Global.minScreenSize / 26,
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),

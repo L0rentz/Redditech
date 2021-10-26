@@ -25,7 +25,7 @@ class DrawerProfil extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Global.redditor!.data!['snoovatar_img'] != null ||
+                    Global.redditor!.data!['snoovatar_img'] != null &&
                             Global.redditor!.data!['snoovatar_img'] != ""
                         ? SizedBox(
                             height: Global.screenWidth / 2.2,

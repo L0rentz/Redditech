@@ -28,7 +28,7 @@ class LoggedScaffold extends StatelessWidget {
                   onTap: () {
                     Scaffold.of(context).openDrawer();
                   },
-                  child: Global.redditor!.data!['snoovatar_img'] != null ||
+                  child: Global.redditor!.data!['snoovatar_img'] != null &&
                           Global.redditor!.data!['snoovatar_img'] != ""
                       ? SizedBox(
                           width: Global.screenHeight / 20,
