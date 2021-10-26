@@ -16,54 +16,56 @@ class LoggedScaffold extends StatelessWidget {
         width: Global.screenWidth / 1.5,
         child: const DrawerProfil(),
       ),
-      appBar: PreferredSize(
-        preferredSize: Size(Global.screenWidth, Global.screenHeight / 15),
-        child: AppBar(
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          title: Row(
-            children: [
-              Builder(builder: (context) {
-                return GestureDetector(
-                  onTap: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  child: Global.redditor!.data!['snoovatar_img'] != null &&
-                          Global.redditor!.data!['snoovatar_img'] != ""
-                      ? SizedBox(
-                          width: Global.screenHeight / 20,
-                          height: Global.screenHeight / 20,
-                          child: Stack(
-                            children: [
-                              Transform.translate(
-                                offset: Offset(
-                                  -Global.minScreenSize / 80,
-                                  Global.minScreenSize / 100,
-                                ),
-                                child: Card(
-                                  elevation: 0,
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
-                                      borderRadius: BorderRadius.circular(50),
+      appBar: AppBar(
+        toolbarHeight: Global.screenHeight / 16,
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            Builder(builder: (context) {
+              return Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    child: Global.redditor!.data!['snoovatar_img'] != null &&
+                            Global.redditor!.data!['snoovatar_img'] != ""
+                        ? SizedBox(
+                            width: Global.screenHeight / 20,
+                            height: Global.screenHeight / 20,
+                            child: Stack(
+                              children: [
+                                Transform.translate(
+                                  offset: Offset(
+                                    -Global.minScreenSize / 110,
+                                    Global.screenHeight / 250,
+                                  ),
+                                  child: Card(
+                                    elevation: 0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade200,
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Image.network(
-                                  Global.redditor!.data!['snoovatar_img']),
-                            ],
+                                Image.network(
+                                    Global.redditor!.data!['snoovatar_img']),
+                              ],
+                            ),
+                          )
+                        : CircleAvatar(
+                            radius: Global.screenHeight / 45,
+                            backgroundImage: NetworkImage(
+                                Global.redditor!.data!['icon_img']),
                           ),
-                        )
-                      : CircleAvatar(
-                          radius: Global.screenHeight / 45,
-                          backgroundImage:
-                              NetworkImage(Global.redditor!.data!['icon_img']),
-                        ),
-                );
-              }),
-            ],
-          ),
+                  ),
+                ],
+              );
+            }),
+          ],
         ),
       ),
       body: body,
