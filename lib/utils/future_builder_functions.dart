@@ -10,12 +10,13 @@ class FutureBuilderFunctions {
       int limit) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     Stream<SubredditRef> streamList =
-        Global.reddit!.subreddits.popular(limit: limit);
+        Global.reddit!.user.subreddits(limit: limit);
     await streamList.forEach((element) {
       inspect(element);
       (element as Subreddit);
       if (element.displayName != "Home") {
         subredditList.add(SubredditListContent(
+          element: element,
           title: "r/" + element.displayName,
           iconUrl: element.iconImage.toString() == "" ||
                   element.iconImage == null
