@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:draw/draw.dart';
 import 'package:flutter_application_1/utils/subreddit_list_content.dart';
+import 'package:flutter_application_1/utils/subreddit_post_content.dart';
+import 'package:flutter_application_1/utils/subreddit_posts_list.dart';
 
 import '../global.dart';
 
@@ -11,7 +13,6 @@ class FutureBuilderFunctions {
     Stream<SubredditRef> streamList =
         Global.reddit!.user.subreddits(limit: limit);
     await streamList.forEach((element) {
-      inspect(element);
       (element as Subreddit);
       if (element.displayName != "Home") {
         subredditList.add(SubredditListContent(
@@ -26,5 +27,21 @@ class FutureBuilderFunctions {
       }
     });
     return subredditList;
+  }
+
+  static Future<List<PostContent>> getPostsFromSubreddit(
+      int limit, Subreddit sub) async {
+    List<PostContent> postList = <PostContent>[];
+    Stream<UserContent> postListData = sub.newest(limit: limit);
+    await postListData.forEach((element) {
+      (element as Submission);
+      inspect(element);
+      postList.add(PostContent(
+        element: element,
+      ));
+      // element.
+      // postList.add(PostContent(name: , description: description))
+    });
+    return postList;
   }
 }

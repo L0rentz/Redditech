@@ -1,7 +1,9 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/utils/future_builder_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
+import 'package:flutter_application_1/utils/subreddit_posts_list.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';
 
 class SubredditPostArguments {
@@ -27,31 +29,15 @@ class _PostsPageState extends State<PostsPage> {
     final String bannerUrl = rawBannerUrl.split("?")[0];
 
     return LoggedScaffold(
-      body: Stack(
-        children: [
-          SizedBox(
-            width: Global.screenWidth,
-            height: Global.screenHeight * 0.08,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: Image.network(bannerUrl),
-            ),
-          ),
-          NamedAvatar(
-              iconUrl: args.element.data!["icon_img"],
-              name: "r/" + args.element.displayName),
-          // Transform.translate(
-          //   offset: Offset(0, Global.minScreenSize * 0.22),
-          //   child: SizedBox(
-          //     width: Global.screenWidth,
-          //     height: Global.screenHeight * 0.08,
-          //     child: Container(
-          //       color: Colors.red,
-          //     ),
-          //   ),
-          // ),
-        ],
-      ),
+      body: Builder(builder: (context) {
+        return PostLists(
+            element: args.element,
+            futureFunction: FutureBuilderFunctions.getPostsFromSubreddit,
+            limit: 20,
+            iconUrl: args.element.data!["icon_img"],
+            name: args.element.displayName,
+            bannerUrl: bannerUrl);
+      }),
       title: args.element.title,
     );
   }
