@@ -6,8 +6,7 @@ import 'package:flutter_application_1/utils/subreddit_list_content.dart';
 import '../global.dart';
 
 class FutureBuilderFunctions {
-  static Future<List<SubredditListContent>> getSubredditsPopularList(
-      int limit) async {
+  static Future<List<SubredditListContent>> getSubredditsList(int limit) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     Stream<SubredditRef> streamList =
         Global.reddit!.user.subreddits(limit: limit);

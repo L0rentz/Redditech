@@ -14,15 +14,20 @@ class MyHubPage extends StatefulWidget {
 }
 
 class _MyHubPageState extends State<MyHubPage> {
+  void refreshCallback() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return LoggedScaffold(
       body: Builder(builder: (context) {
         return SizedBox(
           height: Global.screenHeight,
-          child: const SubredditList(
-            futureFunction: FutureBuilderFunctions.getSubredditsPopularList,
+          child: SubredditList(
+            futureFunction: FutureBuilderFunctions.getSubredditsList,
             limit: 20,
+            refreshCallback: refreshCallback,
           ),
         );
       }),
