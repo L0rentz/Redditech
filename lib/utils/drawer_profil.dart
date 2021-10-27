@@ -10,9 +10,14 @@ class DrawerProfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double offset;
     int redditAge = (DateTime.now().millisecondsSinceEpoch ~/ 1000 -
             Global.redditor!.data!["created_utc"].toInt()) ~/
         86400;
+    Global.redditor!.data!['subreddit']['public_description'] == null ||
+            Global.redditor!.data!['subreddit']['public_description'] == ""
+        ? offset = -Global.screenHeight / 16
+        : offset = 0;
     return SafeArea(
       child: Drawer(
         child: Container(
@@ -115,82 +120,88 @@ class DrawerProfil extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IntrinsicHeight(
-                      child: Row(
-                        children: [
-                          const Spacer(flex: 2),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.stream_sharp,
-                                color: Colors.blue.shade800,
-                                size: Global.minScreenSize / 13,
-                              ),
-                              SizedBox(
-                                width: Global.screenWidth / 30,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Global.redditor!.data!["total_karma"]
-                                        .toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: Global.minScreenSize / 20,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Karma",
-                                    style: TextStyle(
-                                      fontSize: Global.minScreenSize / 35,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const Spacer(),
-                          const VerticalDivider(
-                            color: Colors.black38,
-                          ),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.cake_sharp,
-                                color: Colors.blue.shade800,
-                                size: Global.minScreenSize / 13,
-                              ),
-                              SizedBox(
-                                width: Global.screenWidth / 30,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    redditAge.toString() + "d",
-                                    style: TextStyle(
+                    Transform.translate(
+                      offset: Offset(0.0, offset),
+                      child: IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            const Spacer(flex: 2),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.stream_sharp,
+                                  color: Colors.blue.shade800,
+                                  size: Global.minScreenSize / 13,
+                                ),
+                                SizedBox(
+                                  width: Global.screenWidth / 30,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Global.redditor!.data!["total_karma"]
+                                          .toString(),
+                                      style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: Global.minScreenSize / 20),
-                                  ),
-                                  Text(
-                                    "Reddit age",
-                                    style: TextStyle(
-                                        fontSize: Global.minScreenSize / 35),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const Spacer(flex: 2),
-                        ],
+                                        fontSize: Global.minScreenSize / 20,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Karma",
+                                      style: TextStyle(
+                                        fontSize: Global.minScreenSize / 35,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Spacer(),
+                            const VerticalDivider(
+                              color: Colors.black38,
+                            ),
+                            const Spacer(),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.cake_sharp,
+                                  color: Colors.blue.shade800,
+                                  size: Global.minScreenSize / 13,
+                                ),
+                                SizedBox(
+                                  width: Global.screenWidth / 30,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      redditAge.toString() + "d",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: Global.minScreenSize / 20),
+                                    ),
+                                    Text(
+                                      "Reddit age",
+                                      style: TextStyle(
+                                          fontSize: Global.minScreenSize / 35),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            const Spacer(flex: 2),
+                          ],
+                        ),
                       ),
                     ),
-                    Divider(
-                      indent: Global.screenWidth / 20,
-                      endIndent: Global.screenWidth / 20,
-                      color: Colors.black26,
+                    Transform.translate(
+                      offset: Offset(0.0, offset),
+                      child: Divider(
+                        indent: Global.screenWidth / 20,
+                        endIndent: Global.screenWidth / 20,
+                        color: Colors.black26,
+                      ),
                     ),
                   ],
                 ),

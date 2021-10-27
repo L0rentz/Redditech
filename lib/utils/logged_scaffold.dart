@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/utils/drawer_profil.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 class LoggedScaffold extends StatefulWidget {
   const LoggedScaffold({Key? key, required this.body, required this.title})
@@ -15,43 +14,6 @@ class LoggedScaffold extends StatefulWidget {
 }
 
 class _LoggedScaffoldState extends State<LoggedScaffold> {
-  late SearchBar searchBar;
-
-  void onSubmitted(String value) {
-    setState(() => ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('You wrote $value!'))));
-  }
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      foregroundColor: Colors.black54,
-      backgroundColor: Colors.white,
-      automaticallyImplyLeading: false,
-      elevation: 0.0,
-      actions: [
-        Transform.scale(
-          scale: Global.screenHeight / 600,
-          child: searchBar.getSearchAction(context),
-        ),
-      ],
-    );
-  }
-
-  _LoggedScaffoldState() {
-    searchBar = SearchBar(
-      inBar: false,
-      buildDefaultAppBar: buildAppBar,
-      setState: setState,
-      onSubmitted: onSubmitted,
-      onCleared: () {
-        print("cleared");
-      },
-      onClosed: () {
-        print("closed");
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,11 +71,6 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
               );
             }),
             const Spacer(),
-            SizedBox(
-              width: Global.screenWidth / 1.4,
-              height: Global.screenHeight / 4.4,
-              child: searchBar.build(context),
-            ),
           ],
         ),
       ),
