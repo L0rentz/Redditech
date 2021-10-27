@@ -1,6 +1,7 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';
+import 'package:flutter_application_1/utils/refresher.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import '../global.dart';
@@ -13,7 +14,8 @@ class PostLists extends StatefulWidget {
       required this.iconUrl,
       required this.name,
       required this.bannerUrl,
-      required this.element})
+      required this.element,
+      required this.refreshCallback})
       : super(key: key);
 
   final Function futureFunction;
@@ -22,6 +24,7 @@ class PostLists extends StatefulWidget {
   final String bannerUrl;
   final int limit;
   final Subreddit element;
+  final Function refreshCallback;
 
   @override
   _PostListsState createState() => _PostListsState();
@@ -69,12 +72,15 @@ class _PostListsState extends State<PostLists> {
       future: widget.futureFunction(widget.limit, widget.element),
       builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              dynamic element = snapshot.data![index];
-              return element;
-            },
+          return Refresher(
+            refreshCallback: widget.refreshCallback,
+            child: ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                dynamic element = snapshot.data![index];
+                return element;
+              },
+            ),
           );
         } else {
           return Center(
