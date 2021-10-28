@@ -51,8 +51,6 @@ class FutureBuilderFunctions {
         element: element,
       ));
       idx++;
-      // element.
-      // postList.add(PostContent(name: , description: description))
     });
     return postList;
   }
