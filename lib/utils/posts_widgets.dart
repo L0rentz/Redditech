@@ -2,6 +2,7 @@ import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 
 import '../global.dart';
+import 'join_quit_button.dart';
 
 class NamedAvatar extends StatefulWidget {
   const NamedAvatar(
@@ -19,28 +20,8 @@ class NamedAvatar extends StatefulWidget {
 }
 
 class _NamedAvatarState extends State<NamedAvatar> {
-  String buttonText = "";
-
-  onQuitOrJoin(String text) {
-    if (text == "Join") {
-      widget.element.subscribe();
-      widget.element.data!["user_is_subscriber"] = "true";
-      text = "Quit";
-    } else {
-      widget.element.unsubscribe();
-      widget.element.data!["user_is_subscriber"] = "false";
-      text = "Join";
-    }
-    setState(() {
-      buttonText = text;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    buttonText = widget.element.data!["user_is_subscriber"].toString() == "true"
-        ? "Quit"
-        : "Join";
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -75,11 +56,9 @@ class _NamedAvatarState extends State<NamedAvatar> {
               ),
             ),
             const Spacer(),
-            TextButton(
-                onPressed: () {
-                  onQuitOrJoin(buttonText);
-                },
-                child: Text(buttonText))
+            JoinQuitButton(
+              element: widget.element,
+            ),
           ],
         ),
       ],

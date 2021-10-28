@@ -2,6 +2,7 @@ import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/pages/posts_page.dart';
+import 'package:flutter_application_1/utils/join_quit_button.dart';
 
 class SubredditListContent extends StatefulWidget {
   const SubredditListContent({
@@ -22,29 +23,8 @@ class SubredditListContent extends StatefulWidget {
 }
 
 class _SubredditListContentState extends State<SubredditListContent> {
-  String buttonText = "";
-
-  onQuitOrJoin(String text) {
-    if (text == "Join") {
-      widget.element.subscribe();
-      widget.element.data!["user_is_subscriber"] = "true";
-      text = "Quit";
-    } else {
-      widget.element.unsubscribe();
-      widget.element.data!["user_is_subscriber"] = "false";
-      text = "Join";
-    }
-    setState(() {
-      buttonText = text;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    buttonText = widget.element.data!["user_is_subscriber"].toString() == "true"
-        ? "Quit"
-        : "Join";
-
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/posts',
@@ -81,12 +61,7 @@ class _SubredditListContentState extends State<SubredditListContent> {
                 ),
               ),
               const Spacer(flex: 2),
-              TextButton(
-                onPressed: () {
-                  onQuitOrJoin(buttonText);
-                },
-                child: Text(buttonText),
-              ),
+              JoinQuitButton(element: widget.element),
             ],
           ),
         ),
