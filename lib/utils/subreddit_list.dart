@@ -46,10 +46,12 @@ class _SubredditListState extends State<SubredditList> {
         ? _list = await widget.futureFunction(widget.limit)
         : _list = await widget.futureFunction(widget.limit, widget.element);
 
+    if (!mounted) return;
     setState(() {});
   }
 
   void getListNext() async {
+    if (!mounted) return;
     setState(() {
       _isFetchLoading = true;
     });
@@ -62,6 +64,7 @@ class _SubredditListState extends State<SubredditList> {
             after: Global.afterPost);
     _list.addAll(nextPage);
 
+    if (!mounted) return;
     setState(() {
       _isFetchLoading = false;
     });

@@ -4,12 +4,16 @@ import 'package:flutter_application_1/utils/subreddit_post_content.dart';
 
 import '../global.dart';
 
-class FutureBuilderFunctions {
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+class FutureApiFunctions {
   static Future<List<SubredditListContent>> getSubredditsList(int limit,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
-    Stream<SubredditRef> streamList = Global.reddit!.subreddits
-        .popular(limit: limit, params: {"after": after});
+    /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
+        .popular(limit: limit, params: {"after": after});*/
+    Stream<SubredditRef> streamList = Global.reddit!.user.subreddits(limit: 20);
     int idx = 0;
     await streamList.forEach((element) {
       (element as Subreddit);
@@ -53,5 +57,18 @@ class FutureBuilderFunctions {
       idx++;
     });
     return postList;
+  }
+
+  static Future<void> updateUserSettings() async {
+    const String url = "https://oauth.reddit.com/api/v1/me/prefs";
+    String? authToken = Global.reddit!.auth.credentials.accessToken;
+    const Object obj = {"over_18": false};
+    await http.patch(
+      Uri.parse(url),
+      body: json.encode(obj),
+      headers: {"Authorization": "bearer $authToken", "scope": "submit"},
+    ).then((value) {
+      print(value.body);
+    });
   }
 }

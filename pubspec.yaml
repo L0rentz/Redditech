@@ -44,6 +44,7 @@ dependencies:
   pull_to_refresh: ^2.0.0
   flutter_search_bar: ^3.0.0-dev.1
   intl: ^0.17.0
+  shared_preferences: ^2.0.8
 
 dev_dependencies:
   flutter_test:

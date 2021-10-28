@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/accounts_modal.dart';
+import 'package:flutter_application_1/utils/accounts_modal_content.dart';
+import 'package:flutter_application_1/utils/modal.dart';
 
 import '../global.dart';
 
@@ -78,7 +79,8 @@ class DrawerProfil extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            showAccountsModal(context);
+                            showAccountsModal(
+                                context, const AccountsModalContent());
                           },
                           child: Row(
                             children: [
