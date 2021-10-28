@@ -13,17 +13,17 @@ class AccountsModalContent extends StatelessWidget {
     if (separatorIdx != -1) {
       iconImg = iconImg.substring(0, separatorIdx);
     }
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(
-            Global.screenWidth / 30,
-            Global.screenHeight / 80,
-            Global.screenWidth / 30,
-            0.0,
-          ),
-          child: Text(
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        Global.screenWidth / 30,
+        Global.screenHeight / 100,
+        Global.screenWidth / 30,
+        Global.screenHeight / 100,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
             "ACCOUNTS",
             style: TextStyle(
               fontSize: Global.screenHeight / 65,
@@ -32,52 +32,48 @@ class AccountsModalContent extends StatelessWidget {
               color: Colors.grey.shade700,
             ),
           ),
-        ),
-        Divider(
-          color: Colors.black26,
-          indent: Global.screenWidth / 30,
-          endIndent: Global.screenWidth / 30,
-        ),
-        Row(
-          children: [
-            const Spacer(),
-            CircleAvatar(
-              backgroundColor: Colors.grey.shade300,
-              radius: Global.screenHeight / 50,
-              backgroundImage: NetworkImage(iconImg),
-            ),
-            const Spacer(),
-            Text(
-              "u/" + Global.redditor!.displayName,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: Global.screenHeight / 50,
+          const Divider(
+            color: Colors.black26,
+          ),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey.shade300,
+                radius: Global.screenHeight / 50,
+                backgroundImage: NetworkImage(iconImg),
               ),
-            ),
-            const Spacer(flex: 6),
-            Material(
-              child: InkWell(
-                onTap: () async {
-                  Navigator.popUntil(context, ModalRoute.withName('/'));
-                  Navigator.pushNamed(context, '/');
-                  Future<SharedPreferences> _prefs =
-                      SharedPreferences.getInstance();
-                  final SharedPreferences prefs = await _prefs;
-                  prefs.remove('credentialsJson');
-                  Global.reddit = null;
-                  Global.redditor = null;
-                },
-                child: Icon(
-                  Icons.exit_to_app_rounded,
-                  size: Global.screenHeight / 30,
-                  color: Colors.grey.shade600,
+              const Spacer(),
+              Text(
+                "u/" + Global.redditor!.displayName,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: Global.screenHeight / 50,
                 ),
               ),
-            ),
-            const Spacer(),
-          ],
-        ),
-      ],
+              const Spacer(flex: 6),
+              Material(
+                child: InkWell(
+                  onTap: () async {
+                    Navigator.popUntil(context, ModalRoute.withName('/'));
+                    Navigator.pushNamed(context, '/');
+                    Future<SharedPreferences> _prefs =
+                        SharedPreferences.getInstance();
+                    final SharedPreferences prefs = await _prefs;
+                    prefs.remove('credentialsJson');
+                    Global.reddit = null;
+                    Global.redditor = null;
+                  },
+                  child: Icon(
+                    Icons.exit_to_app_rounded,
+                    size: Global.screenHeight / 30,
+                    color: Colors.grey.shade600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

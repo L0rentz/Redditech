@@ -97,6 +97,7 @@ class DrawerProfil extends StatelessWidget {
                               Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 size: Global.screenWidth / 20,
+                                color: Colors.blue.shade800,
                               ),
                               const Spacer(flex: 2),
                             ],
