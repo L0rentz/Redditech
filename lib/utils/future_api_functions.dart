@@ -1,4 +1,5 @@
 import 'package:draw/draw.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/utils/subreddit_list_content.dart';
 import 'package:flutter_application_1/utils/subreddit_post_content.dart';
 
@@ -20,20 +21,17 @@ class FutureApiFunctions {
       if (idx == limit - 1) {
         Global.afterSubreddit = element.fullname;
       }
-      if (element.displayName != "Home") {
-        subredditList.add(SubredditListContent(
-          element: element,
-          title: "r/" + element.displayName,
-          iconUrl:
-              element.iconImage.toString() == "" || element.iconImage == null
-                  ? element.data!["community_icon"] == "" ||
-                          element.data!["community_icon"] == null
-                      ? Uri.parse("https://i.redd.it/u87eaol1sqi21.png")
-                      : Uri.parse((element.data!["community_icon"]).substring(
-                          0, (element.data!["community_icon"]).indexOf('?')))
-                  : element.iconImage,
-        ));
-      }
+      subredditList.add(SubredditListContent(
+        element: element,
+        title: "r/" + element.displayName,
+        iconUrl: element.iconImage.toString() == "" || element.iconImage == null
+            ? element.data!["community_icon"] == "" ||
+                    element.data!["community_icon"] == null
+                ? Uri.parse("https://i.redd.it/u87eaol1sqi21.png")
+                : Uri.parse((element.data!["community_icon"]).substring(
+                    0, (element.data!["community_icon"]).indexOf('?')))
+            : element.iconImage,
+      ));
       idx++;
     });
     return subredditList;
@@ -59,15 +57,16 @@ class FutureApiFunctions {
     return postList;
   }
 
-  static Future<void> updateUserSettings() async {
+  static Future<void> updateUserSettings(String jsonKey, dynamic value) async {
     const String url = "https://oauth.reddit.com/api/v1/me/prefs";
     String? authToken = Global.reddit!.auth.credentials.accessToken;
-    const Object obj = {"over_18": false};
+    Object obj = {jsonKey: value};
     await http.patch(
       Uri.parse(url),
       body: json.encode(obj),
       headers: {"Authorization": "bearer $authToken", "scope": "submit"},
-    ).then((value) {
+    ).then((value) async {
+      Global.redditor = await Global.reddit!.user.me();
       print(value.body);
     });
   }

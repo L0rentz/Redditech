@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/accounts_modal_content.dart';
 import 'package:flutter_application_1/utils/modal.dart';
+import 'package:flutter_application_1/utils/setting_widget.dart';
 
 import '../global.dart';
 
@@ -205,9 +206,14 @@ class DrawerProfil extends StatelessWidget {
                         color: Colors.black26,
                       ),
                     ),
+                    const SettingWidget(
+                      text: "Show NSFW content \n(I'm over 18)",
+                      icon: Icons.person_outline_sharp,
+                      jsonKey: "over_18",
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
