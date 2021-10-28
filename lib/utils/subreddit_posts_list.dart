@@ -1,6 +1,5 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/posts_widgets.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
 import '../global.dart';

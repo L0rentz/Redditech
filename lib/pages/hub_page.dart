@@ -22,13 +22,10 @@ class _MyHubPageState extends State<MyHubPage> {
   Widget build(BuildContext context) {
     return LoggedScaffold(
       body: Builder(builder: (context) {
-        return SizedBox(
-          height: Global.screenHeight,
-          child: SubredditList(
-            futureFunction: FutureBuilderFunctions.getSubredditsList,
-            limit: 20,
-            refreshCallback: refreshCallback,
-          ),
+        return SubredditList(
+          futureFunction: FutureBuilderFunctions.getSubredditsList,
+          limit: 15,
+          refreshCallback: refreshCallback,
         );
       }),
       title: widget.title,

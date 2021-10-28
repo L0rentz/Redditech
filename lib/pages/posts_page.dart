@@ -1,10 +1,8 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/utils/future_builder_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
-import 'package:flutter_application_1/utils/subreddit_posts_list.dart';
-import 'package:flutter_application_1/utils/posts_widgets.dart';
+import 'package:flutter_application_1/utils/subreddit_list.dart';
 
 class SubredditPostArguments {
   final Subreddit element;
@@ -20,6 +18,10 @@ class PostsPage extends StatefulWidget {
 }
 
 class _PostsPageState extends State<PostsPage> {
+  void refreshCallback() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final args =
@@ -30,13 +32,12 @@ class _PostsPageState extends State<PostsPage> {
 
     return LoggedScaffold(
       body: Builder(builder: (context) {
-        return PostLists(
-            element: args.element,
-            futureFunction: FutureBuilderFunctions.getPostsFromSubreddit,
-            limit: 20,
-            iconUrl: args.element.data!["icon_img"],
-            name: args.element.displayName,
-            bannerUrl: bannerUrl);
+        return SubredditList(
+          element: args.element,
+          refreshCallback: refreshCallback,
+          futureFunction: FutureBuilderFunctions.getPostsFromSubreddit,
+          limit: 20,
+        );
       }),
       title: args.element.title,
     );

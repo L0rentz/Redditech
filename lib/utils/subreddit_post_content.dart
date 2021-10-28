@@ -1,8 +1,6 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 
-import '../global.dart';
-
 class PostContent extends StatefulWidget {
   const PostContent({Key? key, required this.element}) : super(key: key);
 
