@@ -4,6 +4,7 @@ import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
+import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
 
@@ -43,6 +44,10 @@ class _PostsPageState extends State<PostsPage> {
         ),
       ],
     );
+  }
+
+  Padding modalContent() {
+    return 
   }
 
   void refreshCallback() {
@@ -107,7 +112,23 @@ class _PostsPageState extends State<PostsPage> {
                 ),
               ),
               const Divider(),
-              const Text("data"),
+              Padding(
+                padding: EdgeInsets.all(Global.screenWidth * 0.02),
+                child: GestureDetector(
+                  onTap: () {
+                    showAccountsModal(context, Text("ass"));
+                  },
+                  child: Row(
+                    children: [
+                      Text("ass"),
+                      Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: Global.screenWidth / 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               Expanded(
                 flex: 1,
                 child: SubredditList(
