@@ -16,9 +16,13 @@ class AccountsModalContent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Spacer(),
         Padding(
-          padding: EdgeInsets.fromLTRB(Global.screenWidth / 30, 0.0, 0.0, 0.0),
+          padding: EdgeInsets.fromLTRB(
+            Global.screenWidth / 30,
+            Global.screenHeight / 80,
+            Global.screenWidth / 30,
+            0.0,
+          ),
           child: Text(
             "ACCOUNTS",
             style: TextStyle(
@@ -73,7 +77,6 @@ class AccountsModalContent extends StatelessWidget {
             const Spacer(),
           ],
         ),
-        const Spacer(),
       ],
     );
   }
