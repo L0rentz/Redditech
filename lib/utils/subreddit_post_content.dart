@@ -2,6 +2,8 @@ import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../global.dart';
+
 class PostContent extends StatefulWidget {
   const PostContent({Key? key, required this.element}) : super(key: key);
 
@@ -37,7 +39,7 @@ class _PostContentState extends State<PostContent> {
     int ass = widget.element.createdUtc.millisecondsSinceEpoch.toInt();
     int redditAge = (DateTime.now().millisecondsSinceEpoch - ass) ~/ 60000;
     String url = widget.element.thumbnail.toString();
-    print("url: " + widget.element.thumbnail.toString());
+    //print("url: " + widget.element.thumbnail.toString());
 
     if (!url.contains("http")) {
       url = "";
@@ -79,16 +81,17 @@ class _PostContentState extends State<PostContent> {
                   ),
                 ),
                 if (url != "") ...[
-                  Padding(
-                    padding: EdgeInsets.only(left: Global.screenWidth * 0.03),
-                    child: Expanded(
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: Global.screenWidth * 0.03),
                       child: SizedBox(
                         width: Global.screenWidth * 0.3,
                         height: Global.screenHeight * 0.15,
                         child: FittedBox(
                           fit: BoxFit.fill,
                           child: Image.network(
-                              widget.element.thumbnail.toString()),
+                            widget.element.thumbnail.toString(),
+                          ),
                         ),
                       ),
                     ),
