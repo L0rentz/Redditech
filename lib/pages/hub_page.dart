@@ -24,6 +24,7 @@ class _MyHubPageState extends State<MyHubPage> {
           futureFunction: FutureApiFunctions.getSubredditsList,
           limit: 15,
           refreshCallback: refreshCallback,
+          key: UniqueKey(),
         );
       }),
       title: widget.title,

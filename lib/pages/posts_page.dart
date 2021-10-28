@@ -37,6 +37,7 @@ class _PostsPageState extends State<PostsPage> {
           refreshCallback: refreshCallback,
           futureFunction: FutureApiFunctions.getPostsFromSubreddit,
           limit: 20,
+          key: UniqueKey(),
         );
       }),
       title: args.element.title,
