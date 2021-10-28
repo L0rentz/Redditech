@@ -25,6 +25,8 @@ class PostsPage extends StatefulWidget {
 }
 
 class _PostsPageState extends State<PostsPage> {
+  bool isChecked = false;
+
   Stack principalStack(
       String bannerUrl, String iconUrl, String name, Subreddit element) {
     return Stack(
@@ -46,8 +48,26 @@ class _PostsPageState extends State<PostsPage> {
     );
   }
 
-  Padding modalContent() {
-    return 
+  ListView modalContent() {
+    return (ListView(
+      children: [
+        ListTile(
+          onTap: () {
+            setState(() {});
+          },
+          leading: Icon(Icons.message),
+          title: Text('Messages'),
+        ),
+        ListTile(
+          leading: Icon(Icons.account_circle),
+          title: Text('Profile'),
+        ),
+        ListTile(
+          leading: Icon(Icons.settings),
+          title: Text('Settings'),
+        )
+      ],
+    ));
   }
 
   void refreshCallback() {
@@ -116,7 +136,7 @@ class _PostsPageState extends State<PostsPage> {
                 padding: EdgeInsets.all(Global.screenWidth * 0.02),
                 child: GestureDetector(
                   onTap: () {
-                    showAccountsModal(context, Text("ass"));
+                    showAccountsModal(context, modalContent());
                   },
                   child: Row(
                     children: [
