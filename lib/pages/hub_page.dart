@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/future_builder_functions.dart';
+import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
-
-import '../global.dart';
 
 class MyHubPage extends StatefulWidget {
   const MyHubPage({Key? key, required this.title}) : super(key: key);
@@ -23,9 +21,10 @@ class _MyHubPageState extends State<MyHubPage> {
     return LoggedScaffold(
       body: Builder(builder: (context) {
         return SubredditList(
-          futureFunction: FutureBuilderFunctions.getSubredditsList,
+          futureFunction: FutureApiFunctions.getSubredditsList,
           limit: 15,
           refreshCallback: refreshCallback,
+          key: UniqueKey(),
         );
       }),
       title: widget.title,

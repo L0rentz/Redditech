@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -20,7 +22,6 @@ class _RefresherState extends State<Refresher> {
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    await Global.reddit!.auth.refresh();
     Global.redditor = await Global.reddit!.user.me();
     widget.refreshCallback();
     _refreshController.refreshCompleted();
