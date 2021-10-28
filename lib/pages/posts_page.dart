@@ -11,8 +11,9 @@ import '../global.dart';
 
 class SubredditPostArguments {
   final Subreddit element;
+  final Function popRefreshCallback;
 
-  SubredditPostArguments(this.element);
+  SubredditPostArguments(this.element, this.popRefreshCallback);
 }
 
 class PostsPage extends StatefulWidget {
@@ -73,46 +74,55 @@ class _PostsPageState extends State<PostsPage> {
     if (iconUrl == "") {
       iconUrl = "https://i.redd.it/u87eaol1sqi21.png";
     }
-    return LoggedScaffold(
-      body: Builder(builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            principalStack(
-                bannerUrl, iconUrl, args.element.displayName, args.element),
-            Padding(
+
+    Future<bool> _willPopCallback() async {
+      await args.popRefreshCallback();
+      return true; // return true if the route to be popped
+    }
+
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: LoggedScaffold(
+        body: Builder(builder: (context) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              principalStack(
+                  bannerUrl, iconUrl, args.element.displayName, args.element),
+              Padding(
+                  padding: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
+                      Global.screenHeight * 0.03, 0, 0),
+                  child: Text(args.element.data!["subscribers"].toString() +
+                      " subscribers.")),
+              Padding(
                 padding: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
-                    Global.screenHeight * 0.03, 0, 0),
-                child: Text(args.element.data!["subscribers"].toString() +
-                    " subscribers.")),
-            Padding(
-              padding: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
-                  Global.screenHeight * 0.01, 0, 0),
-              child: Text(
-                description,
-                style: TextStyle(
-                    fontFamily: "OpenSans",
-                    fontWeight: FontWeight.bold,
-                    fontSize: Global.minScreenSize * 0.03),
+                    Global.screenHeight * 0.01, 0, 0),
+                child: Text(
+                  description,
+                  style: TextStyle(
+                      fontFamily: "OpenSans",
+                      fontWeight: FontWeight.bold,
+                      fontSize: Global.minScreenSize * 0.03),
+                ),
               ),
-            ),
-            const Divider(),
-            const Text("data"),
-            Expanded(
-              flex: 1,
-              child: SubredditList(
-                element: args.element,
-                refreshCallback: refreshCallback,
-                futureFunction: FutureApiFunctions.getPostsFromSubreddit,
-                limit: 20,
-                key: UniqueKey(),
+              const Divider(),
+              const Text("data"),
+              Expanded(
+                flex: 1,
+                child: SubredditList(
+                  element: args.element,
+                  refreshCallback: refreshCallback,
+                  futureFunction: FutureApiFunctions.getPostsFromSubreddit,
+                  limit: 20,
+                  key: UniqueKey(),
+                ),
               ),
-            ),
-          ],
-        );
-      }),
-      title: args.element.title,
+            ],
+          );
+        }),
+        title: args.element.title,
+      ),
     );
   }
 }

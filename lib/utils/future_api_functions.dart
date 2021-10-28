@@ -1,5 +1,4 @@
 import 'package:draw/draw.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_application_1/utils/subreddit_list_content.dart';
 import 'package:flutter_application_1/utils/subreddit_post_content.dart';
 
@@ -9,7 +8,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class FutureApiFunctions {
-  static Future<List<SubredditListContent>> getSubredditsList(int limit,
+  static Future<List<SubredditListContent>> getSubredditsList(
+      int limit, Function popRefreshCallback,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
@@ -22,6 +22,7 @@ class FutureApiFunctions {
         Global.afterSubreddit = element.fullname;
       }
       subredditList.add(SubredditListContent(
+        popRefreshCallback: popRefreshCallback,
         element: element,
         title: "r/" + element.displayName,
         iconUrl: element.iconImage.toString() == "" || element.iconImage == null

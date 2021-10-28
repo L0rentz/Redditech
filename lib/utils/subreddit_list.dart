@@ -43,7 +43,8 @@ class _SubredditListState extends State<SubredditList> {
 
   void getList() async {
     widget.element == null
-        ? _list = await widget.futureFunction(widget.limit)
+        ? _list =
+            await widget.futureFunction(widget.limit, widget.refreshCallback)
         : _list = await widget.futureFunction(widget.limit, widget.element);
 
     if (!mounted) return;
@@ -58,8 +59,8 @@ class _SubredditListState extends State<SubredditList> {
 
     List<dynamic> nextPage = [];
     widget.element == null
-        ? nextPage = await widget.futureFunction(widget.limit,
-            after: Global.afterSubreddit)
+        ? nextPage = await widget.futureFunction(
+            widget.limit, widget.refreshCallback, after: Global.afterSubreddit)
         : nextPage = await widget.futureFunction(widget.limit, widget.element,
             after: Global.afterPost);
     _list.addAll(nextPage);
