@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/pages/posts_page.dart';
 
-class SubredditListContent extends StatelessWidget {
+class SubredditListContent extends StatefulWidget {
   const SubredditListContent({
     Key? key,
     required this.title,
@@ -16,11 +16,37 @@ class SubredditListContent extends StatelessWidget {
   final Subreddit element;
 
   @override
+  State<SubredditListContent> createState() => _SubredditListContentState();
+}
+
+class _SubredditListContentState extends State<SubredditListContent> {
+  String buttonText = "";
+
+  onQuitOrJoin(String text) {
+    if (text == "Join") {
+      widget.element.subscribe();
+      widget.element.data!["user_is_subscriber"] = "true";
+      text = "Quit";
+    } else {
+      widget.element.unsubscribe();
+      widget.element.data!["user_is_subscriber"] = "false";
+      text = "Join";
+    }
+    setState(() {
+      buttonText = text;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    buttonText = widget.element.data!["user_is_subscriber"].toString() == "true"
+        ? "Quit"
+        : "Join";
+
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, '/posts',
-            arguments: SubredditPostArguments(element));
+            arguments: SubredditPostArguments(widget.element));
       },
       child: Card(
         child: SizedBox(
@@ -28,7 +54,8 @@ class SubredditListContent extends StatelessWidget {
           child: Row(
             children: [
               const Spacer(),
-              if (iconUrl == null || iconUrl.toString() == "") ...[
+              if (widget.iconUrl == null ||
+                  widget.iconUrl.toString() == "") ...[
                 CircleAvatar(
                   radius: Global.screenHeight / 40,
                   backgroundImage: const AssetImage("assets/placeholder.png"),
@@ -36,21 +63,27 @@ class SubredditListContent extends StatelessWidget {
               ] else ...[
                 CircleAvatar(
                   radius: Global.screenHeight / 40,
-                  backgroundImage: NetworkImage(iconUrl.toString()),
+                  backgroundImage: NetworkImage(widget.iconUrl.toString()),
                 ),
               ],
               const Spacer(flex: 1),
               SizedBox(
                 width: Global.screenWidth / 1.5,
                 child: Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                     fontSize: Global.screenHeight / 48,
                     fontFamily: "OpenSans",
                   ),
                 ),
               ),
-              const Spacer(flex: 6),
+              const Spacer(flex: 2),
+              TextButton(
+                onPressed: () {
+                  onQuitOrJoin(buttonText);
+                },
+                child: Text(buttonText),
+              ),
             ],
           ),
         ),
