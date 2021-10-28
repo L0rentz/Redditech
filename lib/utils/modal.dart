@@ -30,7 +30,6 @@ Future<dynamic> showAccountsModal(BuildContext context, Widget modalContent) {
             ],
           ),
           width: Global.screenWidth,
-          height: Global.screenHeight / 9.5,
           child: Wrap(children: [modalContent]),
         ),
       ),
