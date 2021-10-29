@@ -14,11 +14,8 @@ class FutureApiFunctions {
       int limit, Function popRefreshCallback, String filter, String? search,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
-    /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
-        .popular(limit: limit, params: {"after": after});*/
 
     Stream<SubredditRef> streamList;
-    print(search);
     if (search == null) {
       if (filter == "My Subreddits") {
         streamList = Global.reddit!.user.subreddits(limit: 20);
@@ -63,7 +60,7 @@ class FutureApiFunctions {
     List<PostContent> postList = <PostContent>[];
     Stream<UserContent> postListData;
 
-    if (search != null) {
+    if (search == null) {
       if (filter == "Top posts") {
         postListData = sub.top(limit: limit, params: {"after": after});
       } else if (filter == "Hottest") {
@@ -82,7 +79,7 @@ class FutureApiFunctions {
       }
     } else {
       print(filter);
-      postListData = sub.newest(limit: limit, params: {"after": after});
+      postListData = sub.search(search);
     }
     int idx = 0;
     await postListData.forEach((element) {

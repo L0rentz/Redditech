@@ -23,6 +23,10 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
   );
   Widget _appBarTitle = const Text('Search Example');
 
+  void refreshCallback() {
+    setState(() {});
+  }
+
   void _searchPressed() {
     setState(() {
       if (_searchIcon.icon == Icons.search) {
@@ -35,9 +39,20 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
           controller: _filter,
           onSubmitted: (String value) {
             _filter.clear();
-            print(ModalRoute.of(context)!.settings.name);
-            Navigator.pushNamedAndRemoveUntil(context, '/hub', (route) => false,
-                arguments: SubredditPostArguments(null, null, value));
+
+            if (ModalRoute.of(context)!.settings.name.toString() == "/hub") {
+              Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  ModalRoute.of(context)!.settings.name.toString(),
+                  (route) => false,
+                  arguments: SubredditPostArguments(
+                      Global.subreddit, () {}, value, null));
+            } else {
+              Navigator.popAndPushNamed(
+                  context, ModalRoute.of(context)!.settings.name.toString(),
+                  arguments: SubredditPostArguments(
+                      Global.subreddit, refreshCallback, value, true));
+            }
           },
           decoration: const InputDecoration(
               prefixIcon: Icon(

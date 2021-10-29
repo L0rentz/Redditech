@@ -14,10 +14,12 @@ import '../global.dart';
 
 class SubredditPostArguments {
   final Subreddit? element;
-  final Function? popRefreshCallback;
+  final Function popRefreshCallback;
   String? search;
+  bool? willPop;
 
-  SubredditPostArguments(this.element, this.popRefreshCallback, this.search);
+  SubredditPostArguments(
+      this.element, this.popRefreshCallback, this.search, this.willPop);
 }
 
 class PostsPage extends StatefulWidget {
@@ -29,6 +31,7 @@ class PostsPage extends StatefulWidget {
 
 class _PostsPageState extends State<PostsPage> {
   String btnText = "Newest";
+  String? search;
   IconData btnIcon = Icons.new_releases_outlined;
 
   Stack principalStack(
@@ -93,6 +96,7 @@ class _PostsPageState extends State<PostsPage> {
     Navigator.pop(context);
     setState(() {
       btnText = filter;
+      search = null;
       btnIcon = icon;
     });
   }
@@ -105,6 +109,12 @@ class _PostsPageState extends State<PostsPage> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as SubredditPostArguments;
+
+    if (args.search != null) {
+      btnText = args.search!;
+      search = args.search;
+      args.search = null;
+    }
 
     final String rawBannerUrl = args.element!.data!["banner_background_image"];
     String bannerUrl = rawBannerUrl.split("?")[0];
@@ -129,8 +139,14 @@ class _PostsPageState extends State<PostsPage> {
     }
 
     Future<bool> _willPopCallback() async {
-      await args.popRefreshCallback!();
+      // if (args.willPop == false) {
+      await args.popRefreshCallback();
+      // }
       return true; // return true if the route to be popped
+    }
+
+    Future<bool> _noPopBack() async {
+      return (true);
     }
 
     return WillPopScope(
@@ -193,7 +209,7 @@ class _PostsPageState extends State<PostsPage> {
               Expanded(
                 flex: 1,
                 child: SubredditList(
-                  search: args.search,
+                  search: search,
                   filter: btnText,
                   element: args.element,
                   refreshCallback: refreshCallback,

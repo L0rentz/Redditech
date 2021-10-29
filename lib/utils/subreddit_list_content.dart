@@ -27,9 +27,10 @@ class _SubredditListContentState extends State<SubredditListContent> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        Global.subreddit = widget.element;
         Navigator.pushNamed(context, '/posts',
             arguments: SubredditPostArguments(
-                widget.element, widget.popRefreshCallback, "My Subreddits"));
+                widget.element, widget.popRefreshCallback, null, false));
       },
       child: Card(
         child: SizedBox(

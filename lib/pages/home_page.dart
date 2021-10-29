@@ -50,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.redditor);
       Navigator.pop(context);
       Navigator.pushNamed(context, '/hub',
-          arguments: SubredditPostArguments(null, null, "My Subreddits"));
+          arguments:
+              SubredditPostArguments(null, () {}, "My Subreddits", null));
     } catch (e) {
       throw "User closed auth";
     }
@@ -78,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.redditor);
       Navigator.pop(context);
       Navigator.pushNamed(context, '/hub',
-          arguments: SubredditPostArguments(null, null, null));
+          arguments: SubredditPostArguments(null, () {}, null, null));
     }
   }
 

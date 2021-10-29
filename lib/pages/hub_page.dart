@@ -58,7 +58,7 @@ class _MyHubPageState extends State<MyHubPage> {
 
     if (args.search != null) {
       btnText = args.search!;
-      search = args.search;
+      search = args.search!;
       args.search = null;
     }
 
@@ -77,7 +77,7 @@ class _MyHubPageState extends State<MyHubPage> {
               ),
               child: FilterButton(
                 filter: btnText,
-                icon: btnIcon,
+                icon: search == null ? btnIcon : Icons.search,
                 modalContent: modalContent(),
                 modalTitle: "SORT SUBREDDITS BY",
               ),
