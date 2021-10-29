@@ -81,7 +81,10 @@ class DrawerProfil extends StatelessWidget {
                           ),
                           onPressed: () {
                             showAccountsModal(
-                                context, const AccountsModalContent());
+                              context,
+                              const AccountsModalContent(),
+                              "ACCOUNTS",
+                            );
                           },
                           child: Row(
                             children: [

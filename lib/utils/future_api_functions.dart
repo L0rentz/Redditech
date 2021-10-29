@@ -61,6 +61,10 @@ class FutureApiFunctions {
       postListData = sub.hot(limit: limit, params: {"after": after});
     } else if (filter == "Newest") {
       postListData = sub.newest(limit: limit, params: {"after": after});
+    } else if (filter == "Controversial") {
+      postListData = sub.controversial(limit: limit, params: {"after": after});
+    } else if (filter == "Rising") {
+      postListData = sub.rising(limit: limit, params: {"after": after});
     } else {
       postListData = sub.newest(limit: limit, params: {"after": after});
     }
@@ -85,7 +89,7 @@ class FutureApiFunctions {
     await http.patch(
       Uri.parse(url),
       body: json.encode(obj),
-      headers: {"Authorization": "bearer $authToken", "scope": "submit"},
+      headers: {"Authorization": "bearer $authToken"},
     ).then((value) async {
       Global.redditor = await Global.reddit!.user.me();
       print(value.body);

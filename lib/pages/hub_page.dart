@@ -1,8 +1,8 @@
-import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
+import 'package:flutter_application_1/utils/modal_button_selector.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
 
 import '../global.dart';
@@ -22,41 +22,26 @@ class _MyHubPageState extends State<MyHubPage> {
     setState(() {});
   }
 
-  Container modalButton(String text) {
-    return Container(
-      margin: EdgeInsets.all(Global.screenWidth / 80),
-      width: Global.screenWidth,
-      height: Global.screenHeight / 23,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            btnText = text;
-          });
-        },
-        child: FittedBox(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    );
+  void filterCallback(String filter) {
+    Navigator.pop(context);
+    setState(() {
+      btnText = filter;
+    });
   }
 
   Column modalContent() {
     return Column(
       children: [
-        modalButton("My Subreddits"),
-        modalButton("Gold"),
-        modalButton("Popular")
+        ModalButtonSelector(
+          buttonText: "My Subreddits",
+          callback: filterCallback,
+          icon: Icons.workspaces_outlined,
+        ),
+        ModalButtonSelector(
+          buttonText: "Popular",
+          callback: filterCallback,
+          icon: Icons.people_alt_outlined,
+        ),
       ],
     );
   }
@@ -73,7 +58,11 @@ class _MyHubPageState extends State<MyHubPage> {
               padding: EdgeInsets.all(Global.screenWidth * 0.02),
               child: GestureDetector(
                 onTap: () {
-                  showAccountsModal(context, modalContent());
+                  showAccountsModal(
+                    context,
+                    modalContent(),
+                    "SORT SUBREDDITS BY",
+                  );
                 },
                 child: Row(
                   children: [

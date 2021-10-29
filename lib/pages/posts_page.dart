@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
-import 'package:flutter_application_1/utils/join_quit_button.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
+import 'package:flutter_application_1/utils/modal_button_selector.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
 
@@ -50,43 +50,43 @@ class _PostsPageState extends State<PostsPage> {
     );
   }
 
-  Container modalButton(String text) {
-    return Container(
-      margin: EdgeInsets.all(Global.screenWidth / 80),
-      width: Global.screenWidth,
-      height: Global.screenHeight / 23,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            btnText = text;
-          });
-        },
-        child: FittedBox(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontFamily: 'OpenSans',
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   Column modalContent(Subreddit element) {
     return Column(
       children: [
-        modalButton("Newest"),
-        modalButton("Hottest"),
-        modalButton("Top posts")
+        ModalButtonSelector(
+          buttonText: "Hottest",
+          callback: filterCallback,
+          icon: Icons.local_fire_department_sharp,
+        ),
+        ModalButtonSelector(
+          buttonText: "Newest",
+          callback: filterCallback,
+          icon: Icons.new_releases_outlined,
+        ),
+        ModalButtonSelector(
+          buttonText: "Top posts",
+          callback: filterCallback,
+          icon: Icons.emoji_events_outlined,
+        ),
+        ModalButtonSelector(
+          buttonText: "Controversial",
+          callback: filterCallback,
+          icon: Icons.call_split_sharp,
+        ),
+        ModalButtonSelector(
+          buttonText: "Rising",
+          callback: filterCallback,
+          icon: Icons.trending_up_sharp,
+        ),
       ],
     );
+  }
+
+  void filterCallback(String filter) {
+    Navigator.pop(context);
+    setState(() {
+      btnText = filter;
+    });
   }
 
   void refreshCallback() {
@@ -113,7 +113,8 @@ class _PostsPageState extends State<PostsPage> {
 
     inspect(args.element);
     if (rawBannerUrl == "") {
-      bannerUrl = "https://i.redd.it/b7usm1cg9ub71.jpg";
+      bannerUrl =
+          "https://images.squarespace-cdn.com/content/v1/58d0e14c17bffced43369196/1525012335605-81SLLW7QN5YO9R9PTWKY/240_F_101827233_lk3Z4zbgtDLVZTHi2TZLae2zuWHbFsxq.jpg?format=2500w";
     }
     if (iconUrl == "") {
       iconUrl = "https://i.redd.it/u87eaol1sqi21.png";
@@ -139,7 +140,7 @@ class _PostsPageState extends State<PostsPage> {
                   Global.screenWidth * 0.04,
                   0.0,
                   Global.screenWidth * 0.04,
-                  0,
+                  Global.screenWidth * 0.02,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -171,25 +172,27 @@ class _PostsPageState extends State<PostsPage> {
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
-              const Divider(),
-              Padding(
-                padding: EdgeInsets.all(Global.screenWidth * 0.02),
-                child: GestureDetector(
-                  onTap: () {
-                    showAccountsModal(context, modalContent(args.element));
-                  },
-                  child: Row(
-                    children: [
-                      Text(btnText),
-                      Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        size: Global.screenWidth / 20,
+                    const Divider(),
+                    GestureDetector(
+                      onTap: () {
+                        showAccountsModal(
+                          context,
+                          modalContent(args.element),
+                          "SORT POSTS BY",
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Text(btnText),
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            size: Global.screenWidth / 20,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Expanded(
