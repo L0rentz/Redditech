@@ -26,8 +26,12 @@ class _NamedAvatarState extends State<NamedAvatar> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          margin: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
-              Global.minScreenSize * 0.06, Global.minScreenSize * 0.06, 0),
+          margin: EdgeInsets.fromLTRB(
+            Global.minScreenSize * 0.06,
+            Global.minScreenSize * 0.06,
+            Global.minScreenSize * 0.06,
+            0,
+          ),
           width: Global.minScreenSize * 0.12,
           height: Global.minScreenSize * 0.12,
           decoration: BoxDecoration(
@@ -40,12 +44,16 @@ class _NamedAvatarState extends State<NamedAvatar> {
                 image: NetworkImage(widget.iconUrl), fit: BoxFit.fill),
           ),
         ),
-        Row(
-          children: [
-            Padding(
-              padding:
-                  EdgeInsets.fromLTRB(Global.minScreenSize * 0.06, 0, 0, 0),
-              child: Text(
+        Padding(
+          padding: EdgeInsets.fromLTRB(
+            Global.minScreenSize * 0.04,
+            0.0,
+            Global.minScreenSize * 0.04,
+            0,
+          ),
+          child: Row(
+            children: [
+              Text(
                 widget.name,
                 style: TextStyle(
                   fontFamily: 'OpenSans',
@@ -54,12 +62,12 @@ class _NamedAvatarState extends State<NamedAvatar> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const Spacer(),
-            JoinQuitButton(
-              element: widget.element,
-            ),
-          ],
+              const Spacer(),
+              JoinQuitButton(
+                element: widget.element,
+              ),
+            ],
+          ),
         ),
       ],
     );

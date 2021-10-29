@@ -35,29 +35,30 @@ class _JoinQuitButtonState extends State<JoinQuitButton> {
     buttonText = widget.element.data!["user_is_subscriber"].toString() == "true"
         ? "Quit"
         : "Join";
-    return Container(
-      margin: EdgeInsets.fromLTRB(0.0, 0.0, Global.screenWidth / 80, 0.0),
-      width: Global.screenWidth / 8,
-      height: Global.screenHeight / 23,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueAccent),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      child: TextButton(
-        style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.blue.shade100)),
-        onPressed: () {
-          onQuitOrJoin(buttonText);
-        },
+    return SizedBox(
+      width: Global.screenWidth / 9,
+      height: Global.screenHeight / 25,
+      child: Material(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(20.0),
         child: FittedBox(
-          child: Text(
-            buttonText,
-            style: TextStyle(
-              fontFamily: 'OpenSans',
-              color: Colors.blue.shade800,
-              fontWeight: FontWeight.bold,
+          fit: BoxFit.fill,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20.0),
+            splashColor: Colors.orangeAccent.shade400,
+            onTap: () {
+              onQuitOrJoin(buttonText);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Text(
+                buttonText,
+                style: const TextStyle(
+                  fontFamily: 'OpenSans',
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ),
