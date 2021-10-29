@@ -12,10 +12,13 @@ import 'package:flutter_application_1/utils/subreddit_list.dart';
 import '../global.dart';
 
 class SubredditPostArguments {
-  final Subreddit element;
+  final Subreddit? element;
   final Function popRefreshCallback;
+  String? search;
+  bool? willPop;
 
-  SubredditPostArguments(this.element, this.popRefreshCallback);
+  SubredditPostArguments(
+      this.element, this.popRefreshCallback, this.search, this.willPop);
 }
 
 class PostsPage extends StatefulWidget {
@@ -27,6 +30,7 @@ class PostsPage extends StatefulWidget {
 
 class _PostsPageState extends State<PostsPage> {
   String btnText = "Newest";
+  String? search;
   IconData btnIcon = Icons.new_releases_outlined;
 
   Stack principalStack(
@@ -91,6 +95,7 @@ class _PostsPageState extends State<PostsPage> {
     Navigator.pop(context);
     setState(() {
       btnText = filter;
+      search = null;
       btnIcon = icon;
     });
   }
@@ -104,18 +109,24 @@ class _PostsPageState extends State<PostsPage> {
     final args =
         ModalRoute.of(context)!.settings.arguments as SubredditPostArguments;
 
-    final String rawBannerUrl = args.element.data!["banner_background_image"];
+    if (args.search != null) {
+      btnText = args.search!;
+      search = args.search;
+      args.search = null;
+    }
+
+    final String rawBannerUrl = args.element!.data!["banner_background_image"];
     String bannerUrl = rawBannerUrl.split("?")[0];
-    final Uri? uriIconUrl = args.element.iconImage.toString() == "" ||
-            args.element.iconImage == null
-        ? args.element.data!["community_icon"] == "" ||
-                args.element.data!["community_icon"] == null
+    final Uri? uriIconUrl = args.element!.iconImage.toString() == "" ||
+            args.element!.iconImage == null
+        ? args.element!.data!["community_icon"] == "" ||
+                args.element!.data!["community_icon"] == null
             ? Uri.parse("https://i.redd.it/u87eaol1sqi21.png")
-            : Uri.parse((args.element.data!["community_icon"]).substring(
-                0, (args.element.data!["community_icon"]).indexOf('?')))
-        : args.element.iconImage;
+            : Uri.parse((args.element!.data!["community_icon"]).substring(
+                0, (args.element!.data!["community_icon"]).indexOf('?')))
+        : args.element!.iconImage;
     String iconUrl = uriIconUrl.toString();
-    final String description = args.element.data!["public_description"];
+    final String description = args.element!.data!["public_description"];
 
     inspect(args.element);
     if (rawBannerUrl == "") {
@@ -127,8 +138,14 @@ class _PostsPageState extends State<PostsPage> {
     }
 
     Future<bool> _willPopCallback() async {
+      // if (args.willPop == false) {
       await args.popRefreshCallback();
+      // }
       return true; // return true if the route to be popped
+    }
+
+    Future<bool> _noPopBack() async {
+      return (true);
     }
 
     return WillPopScope(
@@ -140,7 +157,7 @@ class _PostsPageState extends State<PostsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               principalStack(
-                  bannerUrl, iconUrl, args.element.displayName, args.element),
+                  bannerUrl, iconUrl, args.element!.displayName, args.element!),
               Padding(
                 padding: EdgeInsets.fromLTRB(
                   Global.screenWidth * 0.04,
@@ -160,7 +177,7 @@ class _PostsPageState extends State<PostsPage> {
                           0.0,
                         ),
                         child: Text(
-                            args.element.data!["subscribers"].toString() +
+                            args.element!.data!["subscribers"].toString() +
                                 " subscribers.")),
                     Padding(
                       padding: EdgeInsets.fromLTRB(
@@ -191,6 +208,7 @@ class _PostsPageState extends State<PostsPage> {
               Expanded(
                 flex: 1,
                 child: SubredditList(
+                  search: search,
                   filter: btnText,
                   element: args.element,
                   refreshCallback: refreshCallback,
@@ -202,7 +220,7 @@ class _PostsPageState extends State<PostsPage> {
             ],
           );
         }),
-        title: args.element.title,
+        title: args.element!.title,
       ),
     );
   }
