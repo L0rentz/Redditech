@@ -31,12 +31,16 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.grey[100],
           accentColor: Palette.redditOrange,
           canvasColor: Colors.grey.shade300,
+          dividerColor: Colors.black38,
+          iconTheme: const IconThemeData(color: Colors.black),
         ),
         dark: ThemeData(
           primarySwatch: Palette.redditOrange,
           backgroundColor: Colors.black,
           hintColor: Colors.white,
           cardColor: Colors.grey.shade800,
+          dividerColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.white),
           canvasColor: Colors.black,
           textTheme: const TextTheme(
             bodyText1: TextStyle(),
