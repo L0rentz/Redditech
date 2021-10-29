@@ -18,7 +18,7 @@ class DrawerProfil extends StatelessWidget {
         86400;
     Global.redditor!.data!['subreddit']['public_description'] == null ||
             Global.redditor!.data!['subreddit']['public_description'] == ""
-        ? offset = -Global.screenHeight / 16
+        ? offset = -Global.screenHeight / 18
         : offset = 0;
     return SafeArea(
       child: Drawer(
@@ -209,12 +209,69 @@ class DrawerProfil extends StatelessWidget {
                         color: Colors.black26,
                       ),
                     ),
-                    const SettingWidget(
-                      text: "Show NSFW content \n(I'm over 18)",
-                      icon: Icons.person_outline_sharp,
-                      jsonKey: "over_18",
-                    ),
                   ],
+                ),
+              ),
+              /*Transform.translate(
+                offset: Offset(0.0, offset),
+                child: Container(
+                  color: Colors.black,
+                  height: Global.screenHeight / 2.3 - offset,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: SettingWidget(
+                          text: "Show NSFW content \n(I'm over 18)",
+                          icon: Icons.person_outline_sharp,
+                          jsonKey: "over_18",
+                          getBool: Global.redditor!.over18,
+                        ),
+                      ),
+                      Expanded(
+                        child: SettingWidget(
+                          text: "Filter profanity",
+                          icon: Icons.speaker_notes_off_outlined,
+                          jsonKey: "no_profanity",
+                          getBool: Global.redditor!.preferNoProfanity,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),*/
+              const Spacer(),
+              Padding(
+                padding: EdgeInsets.only(bottom: Global.screenHeight * 0.02),
+                child: SizedBox(
+                  width: Global.screenWidth / 3,
+                  child: Material(
+                    borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                    child: InkWell(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
+                      onTap: (() {}),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.settings_outlined,
+                            color: Theme.of(context).primaryColor,
+                            size: Global.screenHeight / 28,
+                          ),
+                          const Spacer(),
+                          Text(
+                            "Settings",
+                            style: TextStyle(
+                              fontFamily: "OpenSans",
+                              fontSize: Global.screenHeight * 0.022,
+                            ),
+                          ),
+                          const Spacer(flex: 10),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

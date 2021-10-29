@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/filter_button.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/modal_button_selector.dart';
-import 'package:flutter_application_1/utils/posts_widgets.dart';
+import 'package:flutter_application_1/utils/named_avatar.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
 
 import '../global.dart';
@@ -26,8 +27,8 @@ class PostsPage extends StatefulWidget {
 }
 
 class _PostsPageState extends State<PostsPage> {
-  bool isChecked = false;
   String btnText = "Newest";
+  IconData btnIcon = Icons.new_releases_outlined;
 
   Stack principalStack(
       String bannerUrl, String iconUrl, String name, Subreddit element) {
@@ -50,7 +51,7 @@ class _PostsPageState extends State<PostsPage> {
     );
   }
 
-  Column modalContent(Subreddit element) {
+  Column modalContent() {
     return Column(
       children: [
         ModalButtonSelector(
@@ -78,14 +79,20 @@ class _PostsPageState extends State<PostsPage> {
           callback: filterCallback,
           icon: Icons.trending_up_sharp,
         ),
+        ModalButtonSelector(
+          buttonText: "Random",
+          callback: filterCallback,
+          icon: Icons.wifi_protected_setup_sharp,
+        ),
       ],
     );
   }
 
-  void filterCallback(String filter) {
+  void filterCallback(String filter, IconData icon) {
     Navigator.pop(context);
     setState(() {
       btnText = filter;
+      btnIcon = icon;
     });
   }
 
@@ -173,24 +180,11 @@ class _PostsPageState extends State<PostsPage> {
                       ),
                     ),
                     const Divider(),
-                    GestureDetector(
-                      onTap: () {
-                        showAccountsModal(
-                          context,
-                          modalContent(args.element),
-                          "SORT POSTS BY",
-                        );
-                      },
-                      child: Row(
-                        children: [
-                          Text(btnText),
-                          Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            size: Global.screenWidth / 20,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ],
-                      ),
+                    FilterButton(
+                      filter: btnText,
+                      icon: btnIcon,
+                      modalContent: modalContent(),
+                      modalTitle: "SORT POSTS BY",
                     ),
                   ],
                 ),

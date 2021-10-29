@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utils/filter_button.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
-import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/modal_button_selector.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';
 
@@ -17,15 +17,17 @@ class MyHubPage extends StatefulWidget {
 
 class _MyHubPageState extends State<MyHubPage> {
   String btnText = "My Subreddits";
+  IconData btnIcon = Icons.workspaces_outlined;
 
   void refreshCallback() {
     setState(() {});
   }
 
-  void filterCallback(String filter) {
+  void filterCallback(String filter, IconData icon) {
     Navigator.pop(context);
     setState(() {
       btnText = filter;
+      btnIcon = icon;
     });
   }
 
@@ -55,28 +57,20 @@ class _MyHubPageState extends State<MyHubPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(Global.screenWidth * 0.02),
-              child: GestureDetector(
-                onTap: () {
-                  showAccountsModal(
-                    context,
-                    modalContent(),
-                    "SORT SUBREDDITS BY",
-                  );
-                },
-                child: Row(
-                  children: [
-                    Text(btnText),
-                    Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      size: Global.screenWidth / 20,
-                    ),
-                  ],
-                ),
+              padding: EdgeInsets.fromLTRB(
+                Global.screenWidth * 0.02,
+                Global.screenWidth * 0.02,
+                0.0,
+                Global.screenWidth * 0.01,
+              ),
+              child: FilterButton(
+                filter: btnText,
+                icon: btnIcon,
+                modalContent: modalContent(),
+                modalTitle: "SORT SUBREDDITS BY",
               ),
             ),
             Expanded(
-              flex: 1,
               child: SubredditList(
                 filter: btnText,
                 futureFunction: FutureApiFunctions.getSubredditsList,
