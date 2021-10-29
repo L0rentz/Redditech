@@ -97,7 +97,6 @@ class DrawerProfil extends StatelessWidget {
                               Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 size: Global.screenWidth / 20,
-                                color: Colors.blue.shade800,
                               ),
                               const Spacer(flex: 2),
                             ],
@@ -134,7 +133,7 @@ class DrawerProfil extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.stream_sharp,
-                                  color: Colors.blue.shade800,
+                                  color: Theme.of(context).primaryColor,
                                   size: Global.minScreenSize / 13,
                                 ),
                                 SizedBox(
@@ -170,7 +169,7 @@ class DrawerProfil extends StatelessWidget {
                               children: [
                                 Icon(
                                   Icons.cake_sharp,
-                                  color: Colors.blue.shade800,
+                                  color: Theme.of(context).primaryColor,
                                   size: Global.minScreenSize / 13,
                                 ),
                                 SizedBox(

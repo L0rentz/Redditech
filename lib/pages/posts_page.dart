@@ -91,23 +91,47 @@ class _PostsPageState extends State<PostsPage> {
               principalStack(
                   bannerUrl, iconUrl, args.element.displayName, args.element),
               Padding(
-                  padding: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
-                      Global.screenHeight * 0.03, 0, 0),
-                  child: Text(args.element.data!["subscribers"].toString() +
-                      " subscribers.")),
-              Padding(
-                padding: EdgeInsets.fromLTRB(Global.minScreenSize * 0.06,
-                    Global.screenHeight * 0.01, 0, 0),
-                child: Text(
-                  description,
-                  style: TextStyle(
-                      fontFamily: "OpenSans",
-                      fontWeight: FontWeight.bold,
-                      fontSize: Global.minScreenSize * 0.03),
+                padding: EdgeInsets.fromLTRB(
+                  Global.screenWidth * 0.04,
+                  0.0,
+                  Global.screenWidth * 0.04,
+                  0,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(
+                          0.0,
+                          Global.screenHeight * 0.03,
+                          0.0,
+                          0.0,
+                        ),
+                        child: Text(
+                            args.element.data!["subscribers"].toString() +
+                                " subscribers.")),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        0.0,
+                        Global.screenHeight * 0.01,
+                        0.0,
+                        0.0,
+                      ),
+                      child: Text(
+                        description,
+                        style: TextStyle(
+                          fontFamily: "OpenSans",
+                          fontWeight: FontWeight.bold,
+                          fontSize: Global.minScreenSize * 0.03,
+                        ),
+                      ),
+                    ),
+                    const Divider(),
+                    const Text("data"),
+                  ],
                 ),
               ),
-              const Divider(),
-              const Text("data"),
               Expanded(
                 flex: 1,
                 child: SubredditList(

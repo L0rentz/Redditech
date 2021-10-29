@@ -44,7 +44,7 @@ class _SettingWidgetState extends State<SettingWidget> {
             ),
           ),
           Switch(
-            activeColor: Colors.blue.shade700,
+            activeColor: Theme.of(context).primaryColor,
             value: Global.redditor!.over18 as bool,
             onChanged: (value) async {
               await FutureApiFunctions.updateUserSettings(

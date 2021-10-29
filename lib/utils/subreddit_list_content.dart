@@ -62,6 +62,7 @@ class _SubredditListContentState extends State<SubredditListContent> {
               ),
               const Spacer(flex: 2),
               JoinQuitButton(element: widget.element),
+              const Spacer(),
             ],
           ),
         ),

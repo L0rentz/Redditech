@@ -39,7 +39,6 @@ class _PostContentState extends State<PostContent> {
     int ass = widget.element.createdUtc.millisecondsSinceEpoch.toInt();
     int redditAge = (DateTime.now().millisecondsSinceEpoch - ass) ~/ 60000;
     String url = widget.element.thumbnail.toString();
-    //print("url: " + widget.element.thumbnail.toString());
 
     if (!url.contains("http")) {
       url = "";
