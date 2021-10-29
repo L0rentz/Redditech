@@ -13,12 +13,10 @@ import '../global.dart';
 
 class SubredditPostArguments {
   final Subreddit? element;
-  final Function popRefreshCallback;
   String? search;
   bool? willPop;
 
-  SubredditPostArguments(
-      this.element, this.popRefreshCallback, this.search, this.willPop);
+  SubredditPostArguments(this.element, this.search, this.willPop);
 }
 
 class PostsPage extends StatefulWidget {
@@ -138,14 +136,8 @@ class _PostsPageState extends State<PostsPage> {
     }
 
     Future<bool> _willPopCallback() async {
-      // if (args.willPop == false) {
-      await args.popRefreshCallback();
-      // }
-      return true; // return true if the route to be popped
-    }
-
-    Future<bool> _noPopBack() async {
-      return (true);
+      Global.hubPageKey.currentState!.setState(() {});
+      return true;
     }
 
     return WillPopScope(
@@ -211,7 +203,6 @@ class _PostsPageState extends State<PostsPage> {
                   search: search,
                   filter: btnText,
                   element: args.element,
-                  refreshCallback: refreshCallback,
                   futureFunction: FutureApiFunctions.getPostsFromSubreddit,
                   limit: 20,
                   key: UniqueKey(),

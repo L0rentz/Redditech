@@ -13,17 +13,13 @@ class MyHubPage extends StatefulWidget {
 
   final String title;
   @override
-  _MyHubPageState createState() => _MyHubPageState();
+  MyHubPageState createState() => MyHubPageState();
 }
 
-class _MyHubPageState extends State<MyHubPage> {
+class MyHubPageState extends State<MyHubPage> {
   String btnText = "My Subreddits";
   String? search;
   IconData btnIcon = Icons.workspaces_outlined;
-
-  void refreshCallback() {
-    setState(() {});
-  }
 
   void filterCallback(String filter, IconData icon) {
     Navigator.pop(context);
@@ -88,7 +84,6 @@ class _MyHubPageState extends State<MyHubPage> {
                 filter: btnText,
                 futureFunction: FutureApiFunctions.getSubredditsList,
                 limit: 15,
-                refreshCallback: refreshCallback,
                 key: UniqueKey(),
               ),
             ),

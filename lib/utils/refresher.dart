@@ -23,7 +23,7 @@ class _RefresherState extends State<Refresher> {
 
   void _onRefresh() async {
     Global.redditor = await Global.reddit!.user.me();
-    widget.refreshCallback();
+    widget.refreshCallback;
     _refreshController.refreshCompleted();
   }
 

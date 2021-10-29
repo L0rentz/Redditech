@@ -1,4 +1,6 @@
 import 'package:draw/draw.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_application_1/pages/hub_page.dart';
 
 class Global {
   static late Reddit? reddit;
@@ -9,4 +11,5 @@ class Global {
   static late double minScreenSize;
   static late String? afterPost;
   static late String? afterSubreddit;
+  static late GlobalKey<MyHubPageState> hubPageKey;
 }

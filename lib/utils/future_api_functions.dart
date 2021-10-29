@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 class FutureApiFunctions {
   static Future<List<SubredditListContent>> getSubredditsList(
-      int limit, Function popRefreshCallback, String filter, String? search,
+      int limit, String filter, String? search,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     Stream<SubredditRef> streamList;
@@ -35,7 +35,6 @@ class FutureApiFunctions {
         Global.afterSubreddit = element.fullname;
       }
       subredditList.add(SubredditListContent(
-        popRefreshCallback: popRefreshCallback,
         element: element,
         title: "r/" + element.displayName,
         iconUrl: element.iconImage.toString() == "" || element.iconImage == null

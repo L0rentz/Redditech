@@ -23,10 +23,6 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
   );
   Widget _appBarTitle = const Text('Search Example');
 
-  void refreshCallback() {
-    setState(() {});
-  }
-
   void _searchPressed() {
     setState(() {
       if (_searchIcon.icon == Icons.search) {
@@ -45,13 +41,13 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
                   context,
                   ModalRoute.of(context)!.settings.name.toString(),
                   (route) => false,
-                  arguments: SubredditPostArguments(
-                      Global.subreddit, () {}, value, null));
+                  arguments:
+                      SubredditPostArguments(Global.subreddit, value, null));
             } else {
               Navigator.popAndPushNamed(
                   context, ModalRoute.of(context)!.settings.name.toString(),
-                  arguments: SubredditPostArguments(
-                      Global.subreddit, refreshCallback, value, true));
+                  arguments:
+                      SubredditPostArguments(Global.subreddit, value, true));
             }
           },
           decoration: const InputDecoration(

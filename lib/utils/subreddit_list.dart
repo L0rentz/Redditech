@@ -9,7 +9,6 @@ class SubredditList extends StatefulWidget {
     Key? key,
     required this.futureFunction,
     required this.limit,
-    required this.refreshCallback,
     required this.filter,
     required this.search,
     this.element,
@@ -17,7 +16,6 @@ class SubredditList extends StatefulWidget {
 
   final Function futureFunction;
   final int limit;
-  final Function refreshCallback;
   final Subreddit? element;
   final String filter;
   final String? search;
@@ -49,7 +47,7 @@ class _SubredditListState extends State<SubredditList> {
   void getList() async {
     widget.element == null
         ? _list = await widget.futureFunction(
-            widget.limit, widget.refreshCallback, widget.filter, widget.search)
+            widget.limit, widget.filter, widget.search)
         : _list = await widget.futureFunction(
             widget.limit, widget.element, widget.filter, widget.search);
 
@@ -70,7 +68,7 @@ class _SubredditListState extends State<SubredditList> {
     List<dynamic> nextPage = [];
     widget.element == null
         ? nextPage = await widget.futureFunction(
-            widget.limit, widget.refreshCallback, widget.filter, widget.search,
+            widget.limit, widget.filter, widget.search,
             after: Global.afterSubreddit)
         : nextPage = await widget.futureFunction(
             widget.limit, widget.element, widget.filter, widget.search,
@@ -137,7 +135,8 @@ class _SubredditListState extends State<SubredditList> {
                     flex: 11,
                     child: Scrollbar(
                       child: Refresher(
-                        refreshCallback: widget.refreshCallback,
+                        refreshCallback:
+                            Global.hubPageKey.currentState!.setState,
                         child: ListView.builder(
                           controller: _scrollController,
                           itemCount: _list.length,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/global.dart';
 import 'package:flutter_application_1/pages/hub_page.dart';
 import 'package:flutter_application_1/pages/posts_page.dart';
 import 'package:flutter_application_1/theme/redditech_colors.dart';
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Global.hubPageKey = GlobalKey<MyHubPageState>();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const MyHomePage(title: "Redditech"),
-        '/hub': (context) => const MyHubPage(title: "Home"),
+        '/hub': (context) => MyHubPage(title: "Hub", key: Global.hubPageKey),
         '/posts': (context) => const PostsPage(),
       },
     );

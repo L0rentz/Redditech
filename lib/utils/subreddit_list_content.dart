@@ -10,13 +10,11 @@ class SubredditListContent extends StatefulWidget {
     required this.title,
     required this.iconUrl,
     required this.element,
-    required this.popRefreshCallback,
   }) : super(key: key);
 
   final String title;
   final Uri? iconUrl;
   final Subreddit element;
-  final Function popRefreshCallback;
 
   @override
   State<SubredditListContent> createState() => _SubredditListContentState();
@@ -29,8 +27,7 @@ class _SubredditListContentState extends State<SubredditListContent> {
       onTap: () {
         Global.subreddit = widget.element;
         Navigator.pushNamed(context, '/posts',
-            arguments: SubredditPostArguments(
-                widget.element, widget.popRefreshCallback, null, false));
+            arguments: SubredditPostArguments(widget.element, null, false));
       },
       child: Card(
         child: SizedBox(
