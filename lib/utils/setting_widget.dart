@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'future_api_functions.dart';
 
@@ -38,6 +39,7 @@ class _SettingWidgetState extends State<SettingWidget> {
         Icon(
           widget.icon,
           size: Global.screenHeight / 28,
+          color: Theme.of(context).primaryColor,
         ),
         const Spacer(flex: 2),
         SizedBox(
@@ -55,6 +57,9 @@ class _SettingWidgetState extends State<SettingWidget> {
           activeColor: Theme.of(context).primaryColor,
           value: switchBool!,
           onChanged: (value) async {
+            value == true && widget.jsonKey == "nightmode"
+                ? AdaptiveTheme.of(context).setDark()
+                : AdaptiveTheme.of(context).setLight();
             await FutureApiFunctions.updateUserSettings(widget.jsonKey, value);
             if (mounted) {
               setState(() {

@@ -58,7 +58,6 @@ class _NamedAvatarState extends State<NamedAvatar> {
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: Global.minScreenSize / 22,
-                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),

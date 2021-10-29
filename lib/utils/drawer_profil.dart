@@ -23,7 +23,7 @@ class DrawerProfil extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         child: Container(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,7 +40,7 @@ class DrawerProfil extends StatelessWidget {
                             width: Global.screenWidth / 1.7,
                             height: Global.screenWidth / 2.1,
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade200,
+                              color: Theme.of(context).canvasColor,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Center(
@@ -77,7 +77,7 @@ class DrawerProfil extends StatelessWidget {
                         child: TextButton(
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.all(
-                              Colors.grey.shade300,
+                              Theme.of(context).cardColor,
                             ),
                           ),
                           onPressed: () {
@@ -93,7 +93,10 @@ class DrawerProfil extends StatelessWidget {
                               Text(
                                 "u/" + Global.redditor!.displayName,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .color,
                                   fontSize: Global.screenWidth / 26,
                                 ),
                               ),
@@ -222,7 +225,7 @@ class DrawerProfil extends StatelessWidget {
                   Global.screenHeight * 0.02,
                 ),
                 child: Material(
-                  color: Colors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                   child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),

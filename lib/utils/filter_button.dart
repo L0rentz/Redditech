@@ -32,7 +32,7 @@ class FilterButton extends StatelessWidget {
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               icon,

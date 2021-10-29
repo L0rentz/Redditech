@@ -17,12 +17,12 @@ class LoggedScaffold extends StatefulWidget {
 
 class _LoggedScaffoldState extends State<LoggedScaffold> {
   final TextEditingController _filter = TextEditingController();
-  String _searchText = "";
-  Icon _searchIcon = const Icon(
+  Icon _searchIcon = Icon(
     Icons.search,
     color: Colors.grey,
+    size: Global.screenWidth * 0.08,
   );
-  Widget _appBarTitle = const Text('Search Example');
+  Widget _appBarTitle = const Text('');
 
   void _searchPressed() {
     setState(() {
@@ -63,7 +63,6 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
           Icons.search,
           color: Colors.grey,
         );
-        _appBarTitle = const Text('Search Example');
         _filter.clear();
       }
     });
@@ -78,7 +77,7 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
       ),
       appBar: AppBar(
         toolbarHeight: Global.screenHeight / 16,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).cardColor,
         automaticallyImplyLeading: false,
         title: Row(
           children: [
@@ -102,6 +101,7 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
                                     Global.screenHeight / 200,
                                   ),
                                   child: Card(
+                                    color: Colors.transparent,
                                     elevation: 0,
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -126,7 +126,11 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
               );
             }),
             Expanded(child: _appBarTitle),
-            IconButton(onPressed: _searchPressed, icon: _searchIcon)
+            IconButton(
+              onPressed: _searchPressed,
+              icon: _searchIcon,
+              splashRadius: Global.screenWidth * 0.05,
+            ),
           ],
         ),
       ),

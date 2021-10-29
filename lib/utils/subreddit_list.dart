@@ -11,6 +11,7 @@ class SubredditList extends StatefulWidget {
     required this.limit,
     required this.filter,
     required this.search,
+    required this.refreshCallback,
     this.element,
   }) : super(key: key);
 
@@ -19,6 +20,7 @@ class SubredditList extends StatefulWidget {
   final Subreddit? element;
   final String filter;
   final String? search;
+  final Function? refreshCallback;
 
   @override
   _SubredditListState createState() => _SubredditListState();
@@ -135,8 +137,7 @@ class _SubredditListState extends State<SubredditList> {
                     flex: 11,
                     child: Scrollbar(
                       child: Refresher(
-                        refreshCallback:
-                            Global.hubPageKey.currentState!.setState,
+                        refreshCallback: widget.refreshCallback,
                         child: ListView.builder(
                           controller: _scrollController,
                           itemCount: _list.length,

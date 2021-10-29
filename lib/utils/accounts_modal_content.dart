@@ -30,6 +30,7 @@ class AccountsModalContent extends StatelessWidget {
         ),
         const Spacer(flex: 6),
         Material(
+          color: Theme.of(context).backgroundColor,
           child: InkWell(
             onTap: () async {
               Navigator.popUntil(context, ModalRoute.withName('/'));

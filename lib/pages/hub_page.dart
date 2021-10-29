@@ -80,6 +80,7 @@ class MyHubPageState extends State<MyHubPage> {
             ),
             Expanded(
               child: SubredditList(
+                refreshCallback: null,
                 search: search,
                 filter: btnText,
                 futureFunction: FutureApiFunctions.getSubredditsList,

@@ -102,6 +102,7 @@ class _PostsPageState extends State<PostsPage> {
 
   void refreshCallback() {
     setState(() {});
+    print('ass');
   }
 
   @override
@@ -204,6 +205,7 @@ class _PostsPageState extends State<PostsPage> {
                 child: SubredditList(
                   search: search,
                   filter: btnText,
+                  refreshCallback: refreshCallback,
                   element: args.element,
                   futureFunction: FutureApiFunctions.getPostsFromSubreddit,
                   limit: 20,

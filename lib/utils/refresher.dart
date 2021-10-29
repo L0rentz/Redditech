@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -11,7 +9,7 @@ class Refresher extends StatefulWidget {
       : super(key: key);
 
   final Widget child;
-  final Function refreshCallback;
+  final Function? refreshCallback;
 
   @override
   _RefresherState createState() => _RefresherState();
@@ -23,7 +21,9 @@ class _RefresherState extends State<Refresher> {
 
   void _onRefresh() async {
     Global.redditor = await Global.reddit!.user.me();
-    widget.refreshCallback;
+    widget.refreshCallback == null
+        ? Global.hubPageKey.currentState!.setState(() {})
+        : widget.refreshCallback!();
     _refreshController.refreshCompleted();
   }
 

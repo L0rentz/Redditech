@@ -26,7 +26,7 @@ class FutureApiFunctions {
         streamList = Global.reddit!.user.subreddits(limit: 20);
       }
     } else {
-      streamList = Global.reddit!.subreddits.search(search);
+      streamList = Global.reddit!.subreddits.search(search, limit: 4);
     }
     int idx = 0;
     await streamList.forEach((element) {
@@ -74,8 +74,7 @@ class FutureApiFunctions {
         postListData = sub.newest(limit: limit, params: {"after": after});
       }
     } else {
-      print(filter);
-      postListData = sub.search(search);
+      postListData = sub.search(search, params: {"limit": "4"});
     }
     int idx = 0;
     await postListData.forEach((element) {
@@ -101,7 +100,6 @@ class FutureApiFunctions {
       headers: {"Authorization": "bearer $authToken"},
     ).then((value) async {
       Global.redditor = await Global.reddit!.user.me();
-      print(value.body);
     });
   }
 }

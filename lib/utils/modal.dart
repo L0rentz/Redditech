@@ -21,7 +21,7 @@ Future<dynamic> showAccountsModal(
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: Colors.white,
+            color: Theme.of(context).cardColor,
             boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
@@ -49,7 +49,6 @@ Future<dynamic> showAccountsModal(
                         fontSize: Global.screenHeight / 65,
                         fontFamily: "OpenSans",
                         fontWeight: FontWeight.bold,
-                        color: Colors.grey.shade700,
                       ),
                     ),
                     const Divider(

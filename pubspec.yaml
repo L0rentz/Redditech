@@ -45,6 +45,7 @@ dependencies:
   flutter_search_bar: ^3.0.0-dev.1
   intl: ^0.17.0
   shared_preferences: ^2.0.8
+  adaptive_theme: ^2.3.0
 
 dev_dependencies:
   flutter_test:
