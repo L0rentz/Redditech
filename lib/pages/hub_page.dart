@@ -27,15 +27,12 @@ class _MyHubPageState extends State<MyHubPage> {
       margin: EdgeInsets.all(Global.screenWidth / 80),
       width: Global.screenWidth,
       height: Global.screenHeight / 23,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueAccent),
-        borderRadius: const BorderRadius.all(
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(
           Radius.circular(10.0),
         ),
       ),
       child: TextButton(
-        style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.blue.shade100)),
         onPressed: () {
           setState(() {
             btnText = text;
@@ -44,9 +41,8 @@ class _MyHubPageState extends State<MyHubPage> {
         child: FittedBox(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: 'OpenSans',
-              color: Colors.blue.shade800,
               fontWeight: FontWeight.bold,
             ),
           ),
