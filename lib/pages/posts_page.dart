@@ -171,8 +171,6 @@ class _PostsPageState extends State<PostsPage> {
                         ),
                       ),
                     ),
-                    const Divider(),
-                    const Text("data"),
                   ],
                 ),
               ),
