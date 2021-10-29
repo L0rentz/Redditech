@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
-import 'package:flutter_application_1/utils/join_quit_button.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';

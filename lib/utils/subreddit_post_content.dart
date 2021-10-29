@@ -90,6 +90,9 @@ class _PostContentState extends State<PostContent> {
                           fit: BoxFit.fill,
                           child: Image.network(
                             widget.element.thumbnail.toString(),
+                            errorBuilder: (a, b, c) {
+                              return Container();
+                            },
                           ),
                         ),
                       ),
