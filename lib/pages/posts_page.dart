@@ -190,7 +190,7 @@ class _PostsPageState extends State<PostsPage> {
                     const Divider(),
                     FilterButton(
                       filter: btnText,
-                      icon: btnIcon,
+                      icon: search == null ? btnIcon : Icons.search,
                       modalContent: modalContent(),
                       modalTitle: "SORT POSTS BY",
                     ),
