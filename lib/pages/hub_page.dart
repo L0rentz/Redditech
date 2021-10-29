@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/posts_page.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
@@ -17,6 +18,7 @@ class MyHubPage extends StatefulWidget {
 
 class _MyHubPageState extends State<MyHubPage> {
   String btnText = "My Subreddits";
+  String? search;
 
   void refreshCallback() {
     setState(() {});
@@ -26,6 +28,7 @@ class _MyHubPageState extends State<MyHubPage> {
     Navigator.pop(context);
     setState(() {
       btnText = filter;
+      search = null;
     });
   }
 
@@ -48,6 +51,15 @@ class _MyHubPageState extends State<MyHubPage> {
 
   @override
   Widget build(BuildContext context) {
+    final args =
+        ModalRoute.of(context)!.settings.arguments as SubredditPostArguments;
+
+    if (args.search != null) {
+      btnText = args.search!;
+      search = args.search;
+      args.search = null;
+    }
+
     return LoggedScaffold(
       body: Builder(builder: (context) {
         return Column(
@@ -78,6 +90,7 @@ class _MyHubPageState extends State<MyHubPage> {
             Expanded(
               flex: 1,
               child: SubredditList(
+                search: search,
                 filter: btnText,
                 futureFunction: FutureApiFunctions.getSubredditsList,
                 limit: 15,

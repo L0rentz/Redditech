@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/pages/posts_page.dart';
 import 'package:flutter_application_1/utils/drawer_profil.dart';
 
 class LoggedScaffold extends StatefulWidget {
@@ -14,6 +15,48 @@ class LoggedScaffold extends StatefulWidget {
 }
 
 class _LoggedScaffoldState extends State<LoggedScaffold> {
+  final TextEditingController _filter = TextEditingController();
+  String _searchText = "";
+  Icon _searchIcon = const Icon(
+    Icons.search,
+    color: Colors.grey,
+  );
+  Widget _appBarTitle = const Text('Search Example');
+
+  void _searchPressed() {
+    setState(() {
+      if (_searchIcon.icon == Icons.search) {
+        _searchIcon = const Icon(
+          Icons.close,
+          color: Colors.grey,
+        );
+        _appBarTitle = TextField(
+          autofocus: true,
+          controller: _filter,
+          onSubmitted: (String value) {
+            _filter.clear();
+            print(ModalRoute.of(context)!.settings.name);
+            Navigator.pushNamedAndRemoveUntil(context, '/hub', (route) => false,
+                arguments: SubredditPostArguments(null, null, value));
+          },
+          decoration: const InputDecoration(
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey,
+              ),
+              hintText: 'Search...'),
+        );
+      } else {
+        _searchIcon = const Icon(
+          Icons.search,
+          color: Colors.grey,
+        );
+        _appBarTitle = const Text('Search Example');
+        _filter.clear();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +113,8 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
                 ],
               );
             }),
-            const Spacer(),
+            Expanded(child: _appBarTitle),
+            IconButton(onPressed: _searchPressed, icon: _searchIcon)
           ],
         ),
       ),

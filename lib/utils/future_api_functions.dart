@@ -9,23 +9,28 @@ import 'package:http/http.dart' as http;
 
 class FutureApiFunctions {
   static Future<List<SubredditListContent>> getSubredditsList(
-      int limit, Function popRefreshCallback, String filter,
+      int limit, Function popRefreshCallback, String filter, String? search,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
         .popular(limit: limit, params: {"after": after});*/
 
     Stream<SubredditRef> streamList;
-    if (filter == "My Subreddits") {
-      streamList = Global.reddit!.user.subreddits(limit: 20);
-    } else if (filter == "Gold") {
-      streamList = Global.reddit!.subreddits
-          .gold(limit: limit, params: {"after": after});
-    } else if (filter == "Popular") {
-      streamList = Global.reddit!.subreddits
-          .popular(limit: limit, params: {"after": after});
+    print(search);
+    if (search == null) {
+      if (filter == "My Subreddits") {
+        streamList = Global.reddit!.user.subreddits(limit: 20);
+      } else if (filter == "Gold") {
+        streamList = Global.reddit!.subreddits
+            .gold(limit: limit, params: {"after": after});
+      } else if (filter == "Popular") {
+        streamList = Global.reddit!.subreddits
+            .popular(limit: limit, params: {"after": after});
+      } else {
+        streamList = Global.reddit!.user.subreddits(limit: 20);
+      }
     } else {
-      streamList = Global.reddit!.user.subreddits(limit: 20);
+      streamList = Global.reddit!.subreddits.search(search);
     }
     int idx = 0;
     await streamList.forEach((element) {
@@ -51,22 +56,29 @@ class FutureApiFunctions {
   }
 
   static Future<List<PostContent>> getPostsFromSubreddit(
-      int limit, Subreddit sub, String filter,
+      int limit, Subreddit sub, String filter, String? search,
       {String after = ""}) async {
     List<PostContent> postList = <PostContent>[];
     Stream<UserContent> postListData;
-    if (filter == "Top posts") {
-      postListData = sub.top(limit: limit, params: {"after": after});
-    } else if (filter == "Hottest") {
-      postListData = sub.hot(limit: limit, params: {"after": after});
-    } else if (filter == "Newest") {
-      postListData = sub.newest(limit: limit, params: {"after": after});
-    } else if (filter == "Controversial") {
-      postListData = sub.controversial(limit: limit, params: {"after": after});
-    } else if (filter == "Rising") {
-      postListData = sub.rising(limit: limit, params: {"after": after});
+
+    if (search != null) {
+      if (filter == "Top posts") {
+        postListData = sub.top(limit: limit, params: {"after": after});
+      } else if (filter == "Hottest") {
+        postListData = sub.hot(limit: limit, params: {"after": after});
+      } else if (filter == "Newest") {
+        postListData = sub.newest(limit: limit, params: {"after": after});
+      } else if (filter == "Controversial") {
+        postListData =
+            sub.controversial(limit: limit, params: {"after": after});
+      } else if (filter == "Rising") {
+        postListData = sub.rising(limit: limit, params: {"after": after});
+      } else {
+        print(filter);
+        postListData = sub.newest(limit: limit, params: {"after": after});
+      }
     } else {
-      postListData = sub.newest(limit: limit, params: {"after": after});
+      postListData = sub.search(filter);
     }
     int idx = 0;
     await postListData.forEach((element) {

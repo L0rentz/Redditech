@@ -29,7 +29,7 @@ class _SubredditListContentState extends State<SubredditListContent> {
       onTap: () {
         Navigator.pushNamed(context, '/posts',
             arguments: SubredditPostArguments(
-                widget.element, widget.popRefreshCallback));
+                widget.element, widget.popRefreshCallback, "My Subreddits"));
       },
       child: Card(
         child: SizedBox(
