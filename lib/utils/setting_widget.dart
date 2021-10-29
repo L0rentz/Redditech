@@ -49,7 +49,9 @@ class _SettingWidgetState extends State<SettingWidget> {
             onChanged: (value) async {
               await FutureApiFunctions.updateUserSettings(
                   widget.jsonKey, value);
-              setState(() {});
+              if (mounted) {
+                setState(() {});
+              }
             },
           ),
           const Spacer(),

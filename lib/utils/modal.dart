@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../global.dart';
 
-Future<dynamic> showAccountsModal(BuildContext context, Widget modalContent) {
+Future<dynamic> showAccountsModal(
+    BuildContext context, Widget modalContent, String title) {
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -30,7 +31,36 @@ Future<dynamic> showAccountsModal(BuildContext context, Widget modalContent) {
             ],
           ),
           width: Global.screenWidth,
-          child: Wrap(children: [modalContent]),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              Global.screenWidth / 30,
+              Global.screenHeight / 100,
+              Global.screenWidth / 30,
+              Global.screenHeight / 100,
+            ),
+            child: Wrap(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: Global.screenHeight / 65,
+                        fontFamily: "OpenSans",
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                    const Divider(
+                      color: Colors.black26,
+                    ),
+                    modalContent,
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     ),
