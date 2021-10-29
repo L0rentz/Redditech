@@ -1,6 +1,7 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/utils/named_avatar.dart';
 import 'package:flutter_application_1/utils/refresher.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -30,6 +31,7 @@ class _SubredditListState extends State<SubredditList> {
   final ScrollController _scrollController = ScrollController();
 
   bool _isFetchLoading = false;
+  bool _nothingToDisplay = false;
   List<dynamic> _list = [];
 
   @override
@@ -53,7 +55,11 @@ class _SubredditListState extends State<SubredditList> {
             widget.limit, widget.element, widget.filter, widget.search);
 
     if (!mounted) return;
-    setState(() {});
+    setState(() {
+      if (_list.isEmpty) {
+        _nothingToDisplay = true;
+      }
+    });
   }
 
   void getListNext() async {
@@ -80,54 +86,90 @@ class _SubredditListState extends State<SubredditList> {
 
   @override
   Widget build(BuildContext context) {
-    return _list.isEmpty
+    return _nothingToDisplay
         ? Center(
-            child: SizedBox(
-              height: Global.minScreenSize / 5,
-              width: Global.minScreenSize / 5,
-              child: const LoadingIndicator(
-                indicatorType: Indicator.ballSpinFadeLoader,
-              ),
-            ),
-          )
-        : Column(
-            children: [
-              Expanded(
-                flex: 11,
-                child: Scrollbar(
-                  child: Refresher(
-                    refreshCallback: widget.refreshCallback,
-                    child: ListView.builder(
-                      controller: _scrollController,
-                      itemCount: _list.length,
-                      itemBuilder: (context, index) {
-                        return _list[index];
-                      },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipOval(
+                  child: Container(
+                    foregroundDecoration: const BoxDecoration(
+                      color: Colors.grey,
+                      backgroundBlendMode: BlendMode.saturation,
+                    ),
+                    height: Global.screenWidth / 5,
+                    width: Global.screenWidth / 5,
+                    child: Opacity(
+                      opacity: 0.5,
+                      child: Image.network(
+                        "https://cryptologos.cc/logos/shiba-inu-shib-logo.png",
+                      ),
                     ),
                   ),
                 ),
-              ),
-              _isFetchLoading
-                  ? Expanded(
-                      child: Stack(
-                        children: [
-                          Container(
-                            color: Colors.white,
-                          ),
-                          Center(
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.all(Global.screenHeight / 100),
-                              child: const LoadingIndicator(
-                                indicatorType: Indicator.ballSpinFadeLoader,
-                              ),
-                            ),
-                          ),
-                        ],
+                SizedBox(
+                  height: Global.screenHeight / 60,
+                ),
+                Text(
+                  "Wow, such empty",
+                  style: TextStyle(
+                    fontFamily: "OpenSans",
+                    fontWeight: FontWeight.bold,
+                    fontSize: Global.screenHeight / 60,
+                    color: Colors.grey.shade700,
+                  ),
+                ),
+              ],
+            ),
+          )
+        : _list.isEmpty
+            ? Center(
+                child: SizedBox(
+                  height: Global.minScreenSize / 5,
+                  width: Global.minScreenSize / 5,
+                  child: const LoadingIndicator(
+                    indicatorType: Indicator.ballSpinFadeLoader,
+                  ),
+                ),
+              )
+            : Column(
+                children: [
+                  Expanded(
+                    flex: 11,
+                    child: Scrollbar(
+                      child: Refresher(
+                        refreshCallback: widget.refreshCallback,
+                        child: ListView.builder(
+                          controller: _scrollController,
+                          itemCount: _list.length,
+                          itemBuilder: (context, index) {
+                            return _list[index];
+                          },
+                        ),
                       ),
-                    )
-                  : const SizedBox(),
-            ],
-          );
+                    ),
+                  ),
+                  _isFetchLoading
+                      ? Expanded(
+                          child: Stack(
+                            children: [
+                              Container(
+                                color: Colors.white,
+                              ),
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.all(Global.screenHeight / 100),
+                                  child: const LoadingIndicator(
+                                    indicatorType: Indicator.ballSpinFadeLoader,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(),
+                ],
+              );
   }
 }

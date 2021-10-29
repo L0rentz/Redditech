@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:draw/draw.dart';
 import 'package:flutter_application_1/utils/subreddit_list_content.dart';
 import 'package:flutter_application_1/utils/subreddit_post_content.dart';
@@ -73,12 +75,14 @@ class FutureApiFunctions {
             sub.controversial(limit: limit, params: {"after": after});
       } else if (filter == "Rising") {
         postListData = sub.rising(limit: limit, params: {"after": after});
+      } else if (filter == "Random") {
+        postListData = sub.randomRising(limit: limit, params: {"after": after});
       } else {
-        print(filter);
         postListData = sub.newest(limit: limit, params: {"after": after});
       }
     } else {
-      postListData = sub.search(filter);
+      print(filter);
+      postListData = sub.newest(limit: limit, params: {"after": after});
     }
     int idx = 0;
     await postListData.forEach((element) {

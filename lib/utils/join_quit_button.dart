@@ -38,24 +38,30 @@ class _JoinQuitButtonState extends State<JoinQuitButton> {
     return SizedBox(
       width: Global.screenWidth / 9,
       height: Global.screenHeight / 25,
-      child: Material(
-        color: Theme.of(context).primaryColor,
-        borderRadius: BorderRadius.circular(20.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Theme.of(context).primaryColor,
+          ),
+          borderRadius: BorderRadius.circular(20.0),
+        ),
         child: FittedBox(
           fit: BoxFit.fill,
           child: InkWell(
             borderRadius: BorderRadius.circular(20.0),
-            splashColor: Colors.orangeAccent.shade400,
+            splashColor: Theme.of(context).primaryColor.withOpacity(0.4),
             onTap: () {
               onQuitOrJoin(buttonText);
             },
             child: Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(
+                Global.screenWidth * 0.02,
+              ),
               child: Text(
                 buttonText,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
                   fontFamily: 'OpenSans',
-                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
