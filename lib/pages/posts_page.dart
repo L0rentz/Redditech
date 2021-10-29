@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/filter_button.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
-import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/modal_button_selector.dart';
 import 'package:flutter_application_1/utils/named_avatar.dart';
 import 'package:flutter_application_1/utils/subreddit_list.dart';

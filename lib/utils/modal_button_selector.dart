@@ -17,6 +17,7 @@ class ModalButtonSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         onTap: () => callback(buttonText, icon),

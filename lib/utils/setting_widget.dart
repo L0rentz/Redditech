@@ -22,6 +22,14 @@ class SettingWidget extends StatefulWidget {
 }
 
 class _SettingWidgetState extends State<SettingWidget> {
+  late bool? switchBool;
+
+  @override
+  void initState() {
+    switchBool = widget.getBool;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -31,31 +39,27 @@ class _SettingWidgetState extends State<SettingWidget> {
           widget.icon,
           size: Global.screenHeight / 28,
         ),
+        const Spacer(flex: 2),
         SizedBox(
           width: Global.screenWidth / 2.8,
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-              Global.screenWidth / 30,
-              0.0,
-              Global.screenWidth / 30,
-              0.0,
-            ),
-            child: Text(
-              widget.text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: Global.screenHeight / 65,
-              ),
+          child: Text(
+            widget.text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: Global.screenHeight / 65,
             ),
           ),
         ),
+        const Spacer(flex: 2),
         Switch(
           activeColor: Theme.of(context).primaryColor,
-          value: widget.getBool!,
+          value: switchBool!,
           onChanged: (value) async {
             await FutureApiFunctions.updateUserSettings(widget.jsonKey, value);
             if (mounted) {
-              setState(() {});
+              setState(() {
+                switchBool = value;
+              });
             }
           },
         ),

@@ -1,7 +1,6 @@
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
-import 'package:flutter_application_1/utils/named_avatar.dart';
 import 'package:flutter_application_1/utils/refresher.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 

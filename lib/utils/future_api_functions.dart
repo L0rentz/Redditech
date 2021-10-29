@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:draw/draw.dart';
 import 'package:flutter_application_1/utils/subreddit_list_content.dart';
 import 'package:flutter_application_1/utils/subreddit_post_content.dart';
@@ -14,9 +12,6 @@ class FutureApiFunctions {
       int limit, Function popRefreshCallback, String filter,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
-    /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
-        .popular(limit: limit, params: {"after": after});*/
-
     Stream<SubredditRef> streamList;
     if (filter == "My Subreddits") {
       streamList = Global.reddit!.user.subreddits(limit: 20);

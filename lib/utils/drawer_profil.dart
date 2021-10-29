@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/accounts_modal_content.dart';
 import 'package:flutter_application_1/utils/modal.dart';
-import 'package:flutter_application_1/utils/setting_widget.dart';
+import 'package:flutter_application_1/utils/settings_modal_content.dart';
 
 import '../global.dart';
 
@@ -25,6 +25,7 @@ class DrawerProfil extends StatelessWidget {
         child: Container(
           color: Colors.white,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 children: [
@@ -212,62 +213,47 @@ class DrawerProfil extends StatelessWidget {
                   ],
                 ),
               ),
-              /*Transform.translate(
-                offset: Offset(0.0, offset),
-                child: Container(
-                  color: Colors.black,
-                  height: Global.screenHeight / 2.3 - offset,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: SettingWidget(
-                          text: "Show NSFW content \n(I'm over 18)",
-                          icon: Icons.person_outline_sharp,
-                          jsonKey: "over_18",
-                          getBool: Global.redditor!.over18,
-                        ),
-                      ),
-                      Expanded(
-                        child: SettingWidget(
-                          text: "Filter profanity",
-                          icon: Icons.speaker_notes_off_outlined,
-                          jsonKey: "no_profanity",
-                          getBool: Global.redditor!.preferNoProfanity,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),*/
               const Spacer(),
               Padding(
-                padding: EdgeInsets.only(bottom: Global.screenHeight * 0.02),
-                child: SizedBox(
-                  width: Global.screenWidth / 3,
-                  child: Material(
+                padding: EdgeInsets.fromLTRB(
+                  Global.screenHeight * 0.02,
+                  0.0,
+                  0.0,
+                  Global.screenHeight * 0.02,
+                ),
+                child: Material(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  child: InkWell(
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                    child: InkWell(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0)),
-                      onTap: (() {}),
+                    onTap: (() {
+                      showAccountsModal(
+                        context,
+                        const SettingsModalContent(),
+                        "SETTINGS",
+                      );
+                    }),
+                    child: Padding(
+                      padding: EdgeInsets.all(Global.screenWidth * 0.02),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
                             Icons.settings_outlined,
                             color: Theme.of(context).primaryColor,
-                            size: Global.screenHeight / 28,
+                            size: Global.screenHeight / 30,
                           ),
-                          const Spacer(),
-                          Text(
-                            "Settings",
-                            style: TextStyle(
-                              fontFamily: "OpenSans",
-                              fontSize: Global.screenHeight * 0.022,
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: Global.screenWidth * 0.02),
+                            child: Text(
+                              "Settings",
+                              style: TextStyle(
+                                fontFamily: "OpenSans",
+                                fontSize: Global.screenHeight * 0.02,
+                              ),
                             ),
                           ),
-                          const Spacer(flex: 10),
                         ],
                       ),
                     ),
