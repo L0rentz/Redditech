@@ -15,8 +15,10 @@ class SubredditPostArguments {
   final Subreddit? element;
   String? search;
   bool? willPop;
+  Key? hubPageKey;
 
-  SubredditPostArguments(this.element, this.search, this.willPop);
+  SubredditPostArguments(
+      this.element, this.search, this.willPop, this.hubPageKey);
 }
 
 class PostsPage extends StatefulWidget {

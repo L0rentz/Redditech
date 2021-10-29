@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/pages/hub_page.dart';
 import 'package:flutter_application_1/pages/posts_page.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
@@ -49,8 +50,10 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.reddit);
       inspect(Global.redditor);
       Navigator.pop(context);
+      Global.hubPageKey = GlobalKey<MyHubPageState>();
       Navigator.pushNamed(context, '/hub',
-          arguments: SubredditPostArguments(null, "My Subreddits", null));
+          arguments: SubredditPostArguments(
+              null, "My Subreddits", null, Global.hubPageKey));
     } catch (e) {
       throw "User closed auth";
     }
@@ -77,8 +80,10 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.reddit);
       inspect(Global.redditor);
       Navigator.pop(context);
+      Global.hubPageKey = GlobalKey<MyHubPageState>();
       Navigator.pushNamed(context, '/hub',
-          arguments: SubredditPostArguments(null, null, null));
+          arguments:
+              SubredditPostArguments(null, null, null, Global.hubPageKey));
     }
   }
 

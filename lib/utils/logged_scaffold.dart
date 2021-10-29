@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/global.dart';
+import 'package:flutter_application_1/pages/hub_page.dart';
 import 'package:flutter_application_1/pages/posts_page.dart';
 import 'package:flutter_application_1/utils/drawer_profil.dart';
 
@@ -37,17 +38,17 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
             _filter.clear();
 
             if (ModalRoute.of(context)!.settings.name.toString() == "/hub") {
-              Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  ModalRoute.of(context)!.settings.name.toString(),
-                  (route) => false,
-                  arguments:
-                      SubredditPostArguments(Global.subreddit, value, null));
+              Global.hubPageKey = GlobalKey<MyHubPageState>();
+              Navigator.pop(context);
+              Navigator.pushNamed(
+                  context, ModalRoute.of(context)!.settings.name.toString(),
+                  arguments: SubredditPostArguments(
+                      null, value, null, Global.hubPageKey));
             } else {
               Navigator.popAndPushNamed(
                   context, ModalRoute.of(context)!.settings.name.toString(),
-                  arguments:
-                      SubredditPostArguments(Global.subreddit, value, true));
+                  arguments: SubredditPostArguments(
+                      Global.subreddit, value, true, null));
             }
           },
           decoration: const InputDecoration(

@@ -27,7 +27,8 @@ class _SubredditListContentState extends State<SubredditListContent> {
       onTap: () {
         Global.subreddit = widget.element;
         Navigator.pushNamed(context, '/posts',
-            arguments: SubredditPostArguments(widget.element, null, false));
+            arguments:
+                SubredditPostArguments(widget.element, null, false, null));
       },
       child: Card(
         child: SizedBox(
