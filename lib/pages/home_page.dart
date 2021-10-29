@@ -52,8 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.pop(context);
       Global.hubPageKey = GlobalKey<MyHubPageState>();
       Navigator.pushNamed(context, '/hub',
-          arguments: SubredditPostArguments(
-              null, "My Subreddits", null, Global.hubPageKey));
+          arguments:
+              SubredditPostArguments(null, null, null, Global.hubPageKey));
     } catch (e) {
       throw "User closed auth";
     }
