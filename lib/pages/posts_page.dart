@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:draw/draw.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utils/future_api_functions.dart';
+import 'package:flutter_application_1/utils/join_quit_button.dart';
 import 'package:flutter_application_1/utils/logged_scaffold.dart';
 import 'package:flutter_application_1/utils/modal.dart';
 import 'package:flutter_application_1/utils/posts_widgets.dart';
@@ -26,6 +27,7 @@ class PostsPage extends StatefulWidget {
 
 class _PostsPageState extends State<PostsPage> {
   bool isChecked = false;
+  String btnText = "Newest";
 
   Stack principalStack(
       String bannerUrl, String iconUrl, String name, Subreddit element) {
@@ -48,26 +50,47 @@ class _PostsPageState extends State<PostsPage> {
     );
   }
 
-  ListView modalContent() {
-    return (ListView(
+  Container modalButton(String text) {
+    return Container(
+      margin: EdgeInsets.all(Global.screenWidth / 80),
+      width: Global.screenWidth,
+      height: Global.screenHeight / 23,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.blueAccent),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(10.0),
+        ),
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+            overlayColor: MaterialStateProperty.all(Colors.blue.shade100)),
+        onPressed: () {
+          setState(() {
+            btnText = text;
+          });
+        },
+        child: FittedBox(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: 'OpenSans',
+              color: Colors.blue.shade800,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column modalContent(Subreddit element) {
+    return Column(
       children: [
-        ListTile(
-          onTap: () {
-            setState(() {});
-          },
-          leading: Icon(Icons.message),
-          title: Text('Messages'),
-        ),
-        ListTile(
-          leading: Icon(Icons.account_circle),
-          title: Text('Profile'),
-        ),
-        ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
-        )
+        modalButton("Newest"),
+        modalButton("Hottest"),
+        modalButton("Top posts")
       ],
-    ));
+    );
   }
 
   void refreshCallback() {
@@ -136,11 +159,11 @@ class _PostsPageState extends State<PostsPage> {
                 padding: EdgeInsets.all(Global.screenWidth * 0.02),
                 child: GestureDetector(
                   onTap: () {
-                    showAccountsModal(context, modalContent());
+                    showAccountsModal(context, modalContent(args.element));
                   },
                   child: Row(
                     children: [
-                      Text("ass"),
+                      Text(btnText),
                       Icon(
                         Icons.keyboard_arrow_down_rounded,
                         size: Global.screenWidth / 20,
@@ -152,6 +175,7 @@ class _PostsPageState extends State<PostsPage> {
               Expanded(
                 flex: 1,
                 child: SubredditList(
+                  filter: btnText,
                   element: args.element,
                   refreshCallback: refreshCallback,
                   futureFunction: FutureApiFunctions.getPostsFromSubreddit,

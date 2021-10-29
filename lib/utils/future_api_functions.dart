@@ -9,12 +9,24 @@ import 'package:http/http.dart' as http;
 
 class FutureApiFunctions {
   static Future<List<SubredditListContent>> getSubredditsList(
-      int limit, Function popRefreshCallback,
+      int limit, Function popRefreshCallback, String filter,
       {String after = ""}) async {
     List<SubredditListContent> subredditList = <SubredditListContent>[];
     /*Stream<SubredditRef> streamList = Global.reddit!.subreddits
         .popular(limit: limit, params: {"after": after});*/
-    Stream<SubredditRef> streamList = Global.reddit!.user.subreddits(limit: 20);
+
+    Stream<SubredditRef> streamList;
+    if (filter == "My Subreddits") {
+      streamList = Global.reddit!.user.subreddits(limit: 20);
+    } else if (filter == "Gold") {
+      streamList = Global.reddit!.subreddits
+          .gold(limit: limit, params: {"after": after});
+    } else if (filter == "Popular") {
+      streamList = Global.reddit!.subreddits
+          .popular(limit: limit, params: {"after": after});
+    } else {
+      streamList = Global.reddit!.user.subreddits(limit: 20);
+    }
     int idx = 0;
     await streamList.forEach((element) {
       (element as Subreddit);
@@ -39,11 +51,19 @@ class FutureApiFunctions {
   }
 
   static Future<List<PostContent>> getPostsFromSubreddit(
-      int limit, Subreddit sub,
+      int limit, Subreddit sub, String filter,
       {String after = ""}) async {
     List<PostContent> postList = <PostContent>[];
-    Stream<UserContent> postListData =
-        sub.newest(limit: limit, params: {"after": after});
+    Stream<UserContent> postListData;
+    if (filter == "Top posts") {
+      postListData = sub.top(limit: limit, params: {"after": after});
+    } else if (filter == "Hottest") {
+      postListData = sub.hot(limit: limit, params: {"after": after});
+    } else if (filter == "Newest") {
+      postListData = sub.newest(limit: limit, params: {"after": after});
+    } else {
+      postListData = sub.newest(limit: limit, params: {"after": after});
+    }
     int idx = 0;
     await postListData.forEach((element) {
       (element as Submission);
