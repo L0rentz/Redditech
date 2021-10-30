@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         light: ThemeData(
           primarySwatch: Palette.redditOrange,
           backgroundColor: Colors.white,
+          hintColor: Colors.black,
           scaffoldBackgroundColor: Colors.grey[100],
           accentColor: Palette.redditOrange,
           canvasColor: Colors.grey.shade300,

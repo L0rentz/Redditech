@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.redditor);
       Navigator.pop(context);
       Global.hubPageKey = GlobalKey<MyHubPageState>();
+      Global.afterPostSearch = "";
       Navigator.pushNamed(context, '/hub',
           arguments:
               SubredditPostArguments(null, null, null, Global.hubPageKey));
@@ -80,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       inspect(Global.redditor);
       Navigator.pop(context);
       Global.hubPageKey = GlobalKey<MyHubPageState>();
+      Global.afterPostSearch = "";
       Navigator.pushNamed(context, '/hub',
           arguments:
               SubredditPostArguments(null, null, null, Global.hubPageKey));
