@@ -158,7 +158,7 @@ class _SubredditListState extends State<SubredditList> {
                           child: Stack(
                             children: [
                               Container(
-                                color: Colors.white,
+                                color: Theme.of(context).cardColor,
                               ),
                               Center(
                                 child: Padding(

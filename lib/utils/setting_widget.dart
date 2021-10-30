@@ -39,7 +39,6 @@ class _SettingWidgetState extends State<SettingWidget> {
         Icon(
           widget.icon,
           size: Global.screenHeight / 28,
-          color: Theme.of(context).primaryColor,
         ),
         const Spacer(flex: 2),
         SizedBox(

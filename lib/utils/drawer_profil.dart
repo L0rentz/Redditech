@@ -168,9 +168,7 @@ class DrawerProfil extends StatelessWidget {
                               ],
                             ),
                             const Spacer(),
-                            const VerticalDivider(
-                              color: Colors.black38,
-                            ),
+                            const VerticalDivider(),
                             const Spacer(),
                             Row(
                               children: [
@@ -210,7 +208,6 @@ class DrawerProfil extends StatelessWidget {
                       child: Divider(
                         indent: Global.screenWidth / 20,
                         endIndent: Global.screenWidth / 20,
-                        color: Colors.black26,
                       ),
                     ),
                   ],
