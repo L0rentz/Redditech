@@ -36,6 +36,7 @@ class _LoggedScaffoldState extends State<LoggedScaffold> {
           controller: _filter,
           onSubmitted: (String value) {
             _filter.clear();
+            Global.afterPostSearch = "";
 
             if (ModalRoute.of(context)!.settings.name.toString() == "/hub") {
               Global.hubPageKey = GlobalKey<MyHubPageState>();

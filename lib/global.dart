@@ -10,6 +10,7 @@ class Global {
   static late double screenWidth;
   static late double minScreenSize;
   static late String? afterPost;
+  static late String? afterPostSearch;
   static late String? afterSubreddit;
   static late GlobalKey<MyHubPageState> hubPageKey;
 }

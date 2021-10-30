@@ -26,13 +26,17 @@ class FutureApiFunctions {
         streamList = Global.reddit!.user.subreddits(limit: 20);
       }
     } else {
-      streamList = Global.reddit!.subreddits.search(search, limit: 4);
+      streamList = Global.reddit!.subreddits
+          .search(search, limit: limit, params: {"after": after});
     }
     int idx = 0;
     await streamList.forEach((element) {
       (element as Subreddit);
       if (idx == limit - 1) {
         Global.afterSubreddit = element.fullname;
+        if (search != null) {
+          Global.afterPostSearch = element.fullname;
+        }
       }
       subredditList.add(SubredditListContent(
         element: element,
@@ -74,13 +78,18 @@ class FutureApiFunctions {
         postListData = sub.newest(limit: limit, params: {"after": after});
       }
     } else {
-      postListData = sub.search(search, params: {"limit": "4"});
+      postListData = sub
+          .search(search, params: {"limit": limit.toString(), "after": after});
     }
     int idx = 0;
     await postListData.forEach((element) {
       (element as Submission);
       if (idx == limit - 1) {
+        print("after : " + element.fullname.toString());
         Global.afterPost = element.fullname;
+        if (search != null) {
+          Global.afterPostSearch = element.fullname;
+        }
       }
       postList.add(PostContent(
         element: element,

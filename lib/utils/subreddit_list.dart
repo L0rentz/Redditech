@@ -68,13 +68,18 @@ class _SubredditListState extends State<SubredditList> {
     });
 
     List<dynamic> nextPage = [];
+    print(Global.afterPostSearch);
     widget.element == null
         ? nextPage = await widget.futureFunction(
             widget.limit, widget.filter, widget.search,
-            after: Global.afterSubreddit)
+            after: widget.search == null
+                ? Global.afterSubreddit
+                : Global.afterPostSearch)
         : nextPage = await widget.futureFunction(
             widget.limit, widget.element, widget.filter, widget.search,
-            after: Global.afterPost);
+            after: widget.search == null
+                ? Global.afterPost
+                : Global.afterPostSearch);
     _list.addAll(nextPage);
 
     if (!mounted) return;
