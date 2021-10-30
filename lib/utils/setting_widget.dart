@@ -56,9 +56,11 @@ class _SettingWidgetState extends State<SettingWidget> {
           activeColor: Theme.of(context).primaryColor,
           value: switchBool!,
           onChanged: (value) async {
-            value == true && widget.jsonKey == "nightmode"
-                ? AdaptiveTheme.of(context).setDark()
-                : AdaptiveTheme.of(context).setLight();
+            if (widget.jsonKey == 'nightmode') {
+              value == true
+                  ? AdaptiveTheme.of(context).setDark()
+                  : AdaptiveTheme.of(context).setLight();
+            }
             await FutureApiFunctions.updateUserSettings(widget.jsonKey, value);
             if (mounted) {
               setState(() {
