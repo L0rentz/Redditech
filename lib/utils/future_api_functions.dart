@@ -15,7 +15,7 @@ class FutureApiFunctions {
     Stream<SubredditRef> streamList;
     if (search == null) {
       if (filter == "My Subreddits") {
-        streamList = Global.reddit!.user.subreddits(limit: 20);
+        streamList = Global.reddit!.user.subreddits(limit: limit);
       } else if (filter == "Gold") {
         streamList = Global.reddit!.subreddits
             .gold(limit: limit, params: {"after": after});
@@ -23,7 +23,7 @@ class FutureApiFunctions {
         streamList = Global.reddit!.subreddits
             .popular(limit: limit, params: {"after": after});
       } else {
-        streamList = Global.reddit!.user.subreddits(limit: 20);
+        streamList = Global.reddit!.user.subreddits(limit: limit);
       }
     } else {
       streamList = Global.reddit!.subreddits
